@@ -27,6 +27,9 @@
     <ClCompile Include="piece_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="move_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="board_t.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="piece_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="move_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

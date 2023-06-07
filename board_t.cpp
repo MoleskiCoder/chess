@@ -34,3 +34,56 @@ std::string board_t::representaton() const {
 void board_t::show() const {
 	std::cout << representaton();
 }
+
+std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
+	std::vector<move_t> moves;
+	const auto [x, y] = index2xy(idx);
+	const auto colour = piece.colour();
+	const auto type = piece.type();
+	switch (type) {
+	case piece_t::ROOK:
+		// moves vertically and horizontally
+		// cannot jump over other pieces
+		break;
+	case piece_t::KNIGHT:
+		// two squares horizontal, one vertical
+		// two squares vertical, one horizontal
+		// may jump over any other piece
+		break;
+	case piece_t::BISHOP:
+		// moves diagonally
+		// cannot jump over other pieces
+		break;
+	case piece_t::QUEEN:
+		// Moves in any direction
+		// cannot jump over other pieces
+		break;
+	case piece_t::KING:
+		// Moves in any direction, only one square
+		break;
+	case piece_t::PAWN:
+		// needs colour for direction
+		// Moves down the board only
+		// Moves one or two squares first move, then one thereafter
+		// cannot jump over other pieces
+		break;
+	}
+	return moves;
+}
+
+std::vector<move_t> board_t::generate_moves(int idx, piece_t::colour_t colour) const {
+	const auto& contents = square(idx).contents();
+	const auto empty = !contents.has_value();
+	std::vector<move_t> moves;
+	if (empty || (contents->colour() != colour)) return moves;
+	return generate_moves(idx, *contents);
+}
+
+std::vector<move_t> board_t::generate_moves(piece_t::colour_t colour) const {
+	std::vector<move_t> moves;
+	for (int i = 0; i < 64; ++i) {
+		const auto square_moves = generate_moves(i, colour);
+		moves.insert(moves.begin(), square_moves.begin(), square_moves.end());
+	}
+	return moves;
+}

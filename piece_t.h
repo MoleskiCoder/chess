@@ -30,7 +30,7 @@ public:
 	piece_t(colour_t colour, type_t type);
 
 	auto colour() const { return m_colour; }
-	auto piece() const { return m_colour; }
+	auto type() const { return m_type; }
 	const auto& representation() const { return m_representation; }
 };
 

@@ -24,7 +24,7 @@ piece_t::piece_t(colour_t colour, type_t type)
 		m_representation += "R";
 		break;
 	case piece_t::KNIGHT:
-		m_representation += "K";
+		m_representation += "N";
 		break;
 	case piece_t::BISHOP:
 		m_representation += "B";

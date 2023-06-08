@@ -8,15 +8,16 @@ board_t::board_t()
 : m_squares(64) {}
 
 void board_t::initialise() {
-		squares() = {
-		piece_t::BlackRook, piece_t::BlackKnight,   piece_t::BlackBishop,   piece_t::BlackQueen,    piece_t::BlackKing, piece_t::BlackBishop,   piece_t::BlackKnight,   piece_t::BlackRook,
-		piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,
+	// N.B. Reversed row notation!!
+	squares() = {
 		piece_t::WhiteRook, piece_t::WhiteKnight,   piece_t::WhiteBishop,   piece_t::WhiteQueen,    piece_t::WhiteKing, piece_t::WhiteBishop,   piece_t::WhiteKnight,   piece_t::WhiteRook,
+		piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,
+		piece_t::BlackRook, piece_t::BlackKnight,   piece_t::BlackBishop,   piece_t::BlackQueen,    piece_t::BlackKing, piece_t::BlackBishop,   piece_t::BlackKnight,   piece_t::BlackRook,
 	};
 	current_player() = piece_t::WHITE;
 }

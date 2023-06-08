@@ -1,7 +1,9 @@
-#include "board_t.h"
+#include "game_t.h"
+
+#include <iostream>
 
 int main() {
-	board_t board;
-	board.initialise();
-	board.show();
+	game_t game;
+	game.initialise();
+	std::cout << game.representation();
 }

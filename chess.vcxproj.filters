@@ -30,6 +30,9 @@
     <ClCompile Include="move_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="board_t.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="move_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,7 +29,6 @@ public:
 	std::string representaton() const;
 
 	void initialise();
-	void show() const;
 
 	std::vector<move_t> generate_moves(int idx, piece_t piece) const;
 	std::vector<move_t> generate_moves(int idx, piece_t::colour_t colour) const;

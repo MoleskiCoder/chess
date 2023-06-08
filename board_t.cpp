@@ -1,7 +1,6 @@
 #include "board_t.h"
 
 #include <sstream>
-#include <iostream>
 
 board_t::board_t()
 : m_squares(64) {}
@@ -29,10 +28,6 @@ std::string board_t::representaton() const {
 		oss << std::endl;
 	}
 	return oss.str();
-}
-
-void board_t::show() const {
-	std::cout << representaton();
 }
 
 std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {

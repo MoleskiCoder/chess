@@ -6,6 +6,7 @@
 
 #include "square_t.h"
 #include "move_t.h"
+#include "piece_t.h"
 
 class board_t final {
 private:
@@ -55,6 +56,13 @@ public:
 	static std::string representation(std::vector<move_t> moves);
 
 	void initialise();
+
+	std::vector<move_t> generate_rook_moves(int idx, piece_t::colour_t colour) const;
+	std::vector<move_t> generate_knight_moves(int idx, piece_t::colour_t colour) const;
+	std::vector<move_t> generate_bishop_moves(int idx, piece_t::colour_t colour) const;
+	std::vector<move_t> generate_queen_moves(int idx, piece_t::colour_t colour) const;
+	std::vector<move_t> generate_king_moves(int idx, piece_t::colour_t colour) const;
+	std::vector<move_t> generate_pawn_moves(int idx, piece_t::colour_t colour) const;
 
 	std::vector<move_t> generate_moves(int idx, piece_t piece) const;
 	std::vector<move_t> generate_moves(int idx, piece_t::colour_t colour) const;

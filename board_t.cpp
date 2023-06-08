@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <sstream>
+#include <exception>
 
 board_t::board_t()
 : m_squares(64) {}
@@ -58,55 +59,93 @@ std::string board_t::representation(std::vector<move_t> moves) {
 	return oss.str();
 }
 
-std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
+std::vector<move_t> board_t::generate_rook_moves(int from, piece_t::colour_t colour) const {
+	// moves vertically and horizontally
+	// cannot jump over other pieces
 	std::vector<move_t> moves;
-	const auto [column, row] = index_2_numeric(idx);
-	const auto colour = piece.colour();
-	const auto type = piece.type();
-	const auto from = idx;
-	switch (type) {
-	case piece_t::ROOK:
-		// moves vertically and horizontally
-		// cannot jump over other pieces
+	const auto [column, row] = index_2_numeric(from);
+	return moves;
+}
+
+std::vector<move_t> board_t::generate_knight_moves(int from, piece_t::colour_t colour) const {
+	// two squares horizontal, one vertical
+	// two squares vertical, one horizontal
+	// may jump over any other piece
+	std::vector<move_t> moves;
+	const auto [column, row] = index_2_numeric(from);
+	return moves;
+}
+
+std::vector<move_t> board_t::generate_bishop_moves(int from, piece_t::colour_t colour) const {
+	// moves diagonally
+	// cannot jump over other pieces
+	std::vector<move_t> moves;
+	const auto [column, row] = index_2_numeric(from);
+	return moves;
+}
+
+std::vector<move_t> board_t::generate_queen_moves(int from, piece_t::colour_t colour) const {
+	// Moves in any direction
+	// cannot jump over other pieces
+	std::vector<move_t> moves;
+	const auto [column, row] = index_2_numeric(from);
+	return moves;
+}
+
+std::vector<move_t> board_t::generate_king_moves(int from, piece_t::colour_t colour) const {
+	// Moves in any direction, only one square
+	std::vector<move_t> moves;
+	const auto [column, row] = index_2_numeric(from);
+	return moves;
+}
+
+std::vector<move_t> board_t::generate_pawn_moves(int from, piece_t::colour_t colour) const {
+	// needs colour for direction
+	// Moves down the board only
+	// Moves one or two squares first move, then one thereafter
+	// cannot jump over other pieces
+	std::vector<move_t> moves;
+	const auto [column, row] = index_2_numeric(from);
+	switch (colour) {
+	case piece_t::WHITE:
+		moves.push_back(move_t(from, numeric_2_index(column, row + 1)));
+		if (row == 1)
+			moves.push_back(move_t(from, numeric_2_index(column, row + 2)));
 		break;
-	case piece_t::KNIGHT:
-		// two squares horizontal, one vertical
-		// two squares vertical, one horizontal
-		// may jump over any other piece
+	case piece_t::BLACK:
+		moves.push_back(move_t(from, numeric_2_index(column, row - 1)));
+		if (row == 1)
+			moves.push_back(move_t(from, numeric_2_index(column, row - 2)));
 		break;
-	case piece_t::BISHOP:
-		// moves diagonally
-		// cannot jump over other pieces
-		break;
-	case piece_t::QUEEN:
-		// Moves in any direction
-		// cannot jump over other pieces
-		break;
-	case piece_t::KING:
-		// Moves in any direction, only one square
-		break;
-	case piece_t::PAWN:
-		// needs colour for direction
-		// Moves down the board only
-		// Moves one or two squares first move, then one thereafter
-		// cannot jump over other pieces
-		switch (colour) {
-		case piece_t::WHITE:
-			moves.push_back(move_t(from, numeric_2_index(column, row + 1)));
-			if (row == 1)
-				moves.push_back(move_t(from, numeric_2_index(column, row + 2)));
-			break;
-		case piece_t::BLACK:
-			moves.push_back(move_t(from, numeric_2_index(column, row - 1)));
-			if (row == 1)
-				moves.push_back(move_t(from, numeric_2_index(column, row - 2)));
-			break;
-		default:
-			assert(false && "Unknown piece colour");
-		}
-		break;
+	default:
+		assert(false && "Unknown piece colour");
 	}
 	return moves;
+}
+
+std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
+	const auto colour = piece.colour();
+	const auto type = piece.type();
+	switch (type) {
+	case piece_t::ROOK:
+		return generate_rook_moves(idx, colour);
+		break;
+	case piece_t::KNIGHT:
+		return generate_knight_moves(idx, colour);
+		break;
+	case piece_t::BISHOP:
+		return generate_bishop_moves(idx, colour);
+		break;
+	case piece_t::QUEEN:
+		return generate_queen_moves(idx, colour);
+		break;
+	case piece_t::KING:
+		return generate_king_moves(idx, colour);
+		break;
+	case piece_t::PAWN:
+		return generate_pawn_moves(idx, colour);
+	}
+	throw std::logic_error("Unknown piece type");
 }
 
 std::vector<move_t> board_t::generate_moves(int idx, piece_t::colour_t colour) const {

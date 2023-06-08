@@ -63,6 +63,7 @@ std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
 	const auto [column, row] = index_2_numeric(idx);
 	const auto colour = piece.colour();
 	const auto type = piece.type();
+	const auto from = idx;
 	switch (type) {
 	case piece_t::ROOK:
 		// moves vertically and horizontally
@@ -91,8 +92,14 @@ std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
 		// cannot jump over other pieces
 		switch (colour) {
 		case piece_t::WHITE:
+			moves.push_back(move_t(from, numeric_2_index(column, row + 1)));
+			if (row == 1)
+				moves.push_back(move_t(from, numeric_2_index(column, row + 2)));
 			break;
 		case piece_t::BLACK:
+			moves.push_back(move_t(from, numeric_2_index(column, row - 1)));
+			if (row == 1)
+				moves.push_back(move_t(from, numeric_2_index(column, row - 2)));
 			break;
 		default:
 			assert(false && "Unknown piece colour");

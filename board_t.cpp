@@ -1,20 +1,21 @@
 #include "board_t.h"
 
+#include <cassert>
 #include <sstream>
 
 board_t::board_t()
 : m_squares(64) {}
 
 void board_t::initialise() {
-	squares() = {
-		piece_t::BlackRook,	piece_t::BlackKnight,	piece_t::BlackBishop,	piece_t::BlackQueen,	piece_t::BlackKing,	piece_t::BlackBishop,	piece_t::BlackKnight,	piece_t::BlackRook,
-		piece_t::BlackPawn, piece_t::BlackPawn,		piece_t::BlackPawn,		piece_t::BlackPawn,		piece_t::BlackPawn,	piece_t::BlackPawn,		piece_t::BlackPawn,		piece_t::BlackPawn,
-		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,
-		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,
-		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,
-		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,		square_t::Empty,	square_t::Empty,		square_t::Empty,		square_t::Empty,
-		piece_t::WhitePawn, piece_t::WhitePawn,		piece_t::WhitePawn,		piece_t::WhitePawn,		piece_t::WhitePawn,	piece_t::WhitePawn,		piece_t::WhitePawn,		piece_t::WhitePawn,
-		piece_t::WhiteRook,	piece_t::WhiteKnight,	piece_t::WhiteBishop,	piece_t::WhiteQueen,	piece_t::WhiteKing,	piece_t::WhiteBishop,	piece_t::WhiteKnight,	piece_t::WhiteRook,
+		squares() = {
+		piece_t::BlackRook, piece_t::BlackKnight,   piece_t::BlackBishop,   piece_t::BlackQueen,    piece_t::BlackKing, piece_t::BlackBishop,   piece_t::BlackKnight,   piece_t::BlackRook,
+		piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,
+		piece_t::WhiteRook, piece_t::WhiteKnight,   piece_t::WhiteBishop,   piece_t::WhiteQueen,    piece_t::WhiteKing, piece_t::WhiteBishop,   piece_t::WhiteKnight,   piece_t::WhiteRook,
 	};
 	current_player() = piece_t::WHITE;
 }
@@ -36,14 +37,12 @@ std::string board_t::representaton() const {
 }
 
 std::string board_t::representation(int idx) {
-	const auto [x, y] = index2xy(idx);
-	return representation(x, y);
+	const auto [column, row] = index_2_numeric(idx);
+	return representation(column, row);
 }
 
-std::string board_t::representation(int x, int y) {
-	const char column = 'A' + x;
-	const char row = '1' + y;
-	return std::string({ column, row });
+std::string board_t::representation(int column, int row) {
+	return std::string({ (char)('A' + column), (char)('1' + row) });
 }
 
 std::string board_t::representation(move_t move) {
@@ -61,7 +60,7 @@ std::string board_t::representation(std::vector<move_t> moves) {
 
 std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
 	std::vector<move_t> moves;
-	const auto [x, y] = index2xy(idx);
+	const auto [column, row] = index_2_numeric(idx);
 	const auto colour = piece.colour();
 	const auto type = piece.type();
 	switch (type) {
@@ -90,6 +89,14 @@ std::vector<move_t> board_t::generate_moves(int idx, piece_t piece) const {
 		// Moves down the board only
 		// Moves one or two squares first move, then one thereafter
 		// cannot jump over other pieces
+		switch (colour) {
+		case piece_t::WHITE:
+			break;
+		case piece_t::BLACK:
+			break;
+		default:
+			assert(false && "Unknown piece colour");
+		}
 		break;
 	}
 	return moves;

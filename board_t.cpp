@@ -16,6 +16,11 @@ void board_t::initialise() {
 		piece_t::WhitePawn, piece_t::WhitePawn,		piece_t::WhitePawn,		piece_t::WhitePawn,		piece_t::WhitePawn,	piece_t::WhitePawn,		piece_t::WhitePawn,		piece_t::WhitePawn,
 		piece_t::WhiteRook,	piece_t::WhiteKnight,	piece_t::WhiteBishop,	piece_t::WhiteQueen,	piece_t::WhiteKing,	piece_t::WhiteBishop,	piece_t::WhiteKnight,	piece_t::WhiteRook,
 	};
+	current_player() = piece_t::WHITE;
+}
+
+void board_t::swap_current_player() {
+	current_player() = current_player() == piece_t::WHITE ? piece_t::BLACK : piece_t::WHITE;
 }
 
 std::string board_t::representaton() const {
@@ -27,6 +32,30 @@ std::string board_t::representaton() const {
 		}
 		oss << std::endl;
 	}
+	return oss.str();
+}
+
+std::string board_t::representation(int idx) {
+	const auto [x, y] = index2xy(idx);
+	return representation(x, y);
+}
+
+std::string board_t::representation(int x, int y) {
+	const char column = 'A' + x;
+	const char row = '1' + y;
+	return std::string({ column, row });
+}
+
+std::string board_t::representation(move_t move) {
+	std::ostringstream oss;
+	oss << "From: " << representation(move.from()) << ", To: " << representation(move.to());
+	return oss.str();
+}
+
+std::string board_t::representation(std::vector<move_t> moves) {
+	std::ostringstream oss;
+	for (const auto& move : moves)
+		oss << representation(move) << std::endl;
 	return oss.str();
 }
 
@@ -81,4 +110,8 @@ std::vector<move_t> board_t::generate_moves(piece_t::colour_t colour) const {
 		moves.insert(moves.begin(), square_moves.begin(), square_moves.end());
 	}
 	return moves;
+}
+
+std::vector<move_t> board_t::generate_moves() const {
+	return generate_moves(current_player());
 }

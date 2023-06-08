@@ -10,6 +10,7 @@
 class board_t final {
 private:
 	std::vector<square_t> m_squares;
+	piece_t::colour_t m_current_player = piece_t::WHITE;
 
 public:
 	board_t();
@@ -26,11 +27,22 @@ public:
 	const auto& square(int x, int y) const { return square(xy2index(x, y)); }
 	auto& square(int x, int y) { return square(xy2index(x, y)); }
 
+	auto& current_player() { return m_current_player; }
+	auto current_player() const { return m_current_player; }
+
+	void swap_current_player();
+
 	std::string representaton() const;
+	static std::string representation(int idx);
+	static std::string representation(int x, int y);
+
+	static std::string representation(move_t move);
+	static std::string representation(std::vector<move_t> moves);
 
 	void initialise();
 
 	std::vector<move_t> generate_moves(int idx, piece_t piece) const;
 	std::vector<move_t> generate_moves(int idx, piece_t::colour_t colour) const;
 	std::vector<move_t> generate_moves(piece_t::colour_t colour) const;
+	std::vector<move_t> generate_moves() const;
 };

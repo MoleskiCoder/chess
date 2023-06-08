@@ -2,11 +2,11 @@
 
 class move_t {
 private:
-	size_t m_from;
-	size_t m_to;
+	int m_from;
+	int m_to;
 
 public:
-	move_t(size_t from, size_t to);
+	move_t(int from, int to);
 
 	auto from() const { return m_from; }
 	auto to() const { return m_to; }

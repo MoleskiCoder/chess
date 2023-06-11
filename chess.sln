@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chess", "chess.vcxproj", "{37EB4024-EF18-42DC-AA1E-4E78A8B9782B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chess_lib", "chess_lib\chess_lib.vcxproj", "{2858CA43-CC2B-414E-BDAF-C5711A98BA37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{37EB4024-EF18-42DC-AA1E-4E78A8B9782B}.Release|x64.Build.0 = Release|x64
 		{37EB4024-EF18-42DC-AA1E-4E78A8B9782B}.Release|x86.ActiveCfg = Release|Win32
 		{37EB4024-EF18-42DC-AA1E-4E78A8B9782B}.Release|x86.Build.0 = Release|Win32
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Debug|x64.ActiveCfg = Debug|x64
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Debug|x64.Build.0 = Debug|x64
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Debug|x86.ActiveCfg = Debug|Win32
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Debug|x86.Build.0 = Debug|Win32
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Release|x64.ActiveCfg = Release|x64
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Release|x64.Build.0 = Release|x64
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Release|x86.ActiveCfg = Release|Win32
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

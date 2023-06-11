@@ -60,6 +60,10 @@ std::string board_t::representation(std::vector<move_t> moves) {
 	return oss.str();
 }
 
+std::string board_t::representation(piece_t::colour_t colour) {
+	return colour == piece_t::WHITE ? "W" : "B";
+}
+
 std::vector<move_t> board_t::generate_rook_moves(int from, piece_t::colour_t colour) const {
 	// moves vertically and horizontally
 	// cannot jump over other pieces

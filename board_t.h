@@ -55,6 +55,8 @@ public:
 	static std::string representation(move_t move);
 	static std::string representation(std::vector<move_t> moves);
 
+	static std::string representation(piece_t::colour_t colour);
+
 	void initialise();
 
 	std::vector<move_t> generate_rook_moves(int idx, piece_t::colour_t colour) const;

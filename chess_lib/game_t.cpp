@@ -1,6 +1,6 @@
-#include "game_t.h"
+#include "pch.h"
 
-#include <sstream>
+#include "game_t.h"
 
 void game_t::initialise() {
 	board().initialise();

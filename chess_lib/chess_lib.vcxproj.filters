@@ -15,18 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
+    <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
+    <ClInclude Include="board_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="move_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="piece_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="square_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="chess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="chess_lib.cpp">
+    <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="board_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="move_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="piece_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="square_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

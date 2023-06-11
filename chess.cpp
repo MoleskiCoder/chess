@@ -1,4 +1,4 @@
-#include "game_t.h"
+#include "chess.h"
 
 #include <iostream>
 

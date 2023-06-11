@@ -1,8 +1,6 @@
-#include "board_t.h"
+#include "pch.h"
 
-#include <cassert>
-#include <sstream>
-#include <exception>
+#include "board_t.h"
 
 board_t::board_t()
 : m_squares(64) {}

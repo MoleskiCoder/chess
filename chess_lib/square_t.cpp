@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "square_t.h"
 
 square_t square_t::Empty;

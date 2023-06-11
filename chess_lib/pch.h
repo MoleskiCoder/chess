@@ -7,7 +7,12 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that you want to pre-compile here
-#include "framework.h"
+#include <cassert>
+#include <exception>
+#include <optional>
+#include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
 #endif //PCH_H

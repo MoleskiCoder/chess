@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "piece_t.h"
 
 piece_t piece_t::BlackRook = { BLACK, ROOK };

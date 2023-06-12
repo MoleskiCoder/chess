@@ -201,3 +201,61 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		REQUIRE(board_t::has_move(moves, { from, "A5" }));
 	}
 }
+
+TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
+
+	board_t board;
+	board.clear_squares();
+
+	SECTION("White rook, bottom left corner") {
+		board.current_player() = piece_t::WHITE;
+		const std::string from = "A1";
+		board.square(board_t::algebraic_2_index(from)) = piece_t::WhiteRook;
+		const auto moves = board.generate_moves();
+		REQUIRE(moves.size() == 14);
+
+		// Horizontal moves
+		REQUIRE(board_t::has_move(moves, { from, "A2" }));
+		REQUIRE(board_t::has_move(moves, { from, "A3" }));
+		REQUIRE(board_t::has_move(moves, { from, "A4" }));
+		REQUIRE(board_t::has_move(moves, { from, "A5" }));
+		REQUIRE(board_t::has_move(moves, { from, "A6" }));
+		REQUIRE(board_t::has_move(moves, { from, "A7" }));
+		REQUIRE(board_t::has_move(moves, { from, "A8" }));
+
+		// Vertical moves
+		REQUIRE(board_t::has_move(moves, { from, "B1" }));
+		REQUIRE(board_t::has_move(moves, { from, "C1" }));
+		REQUIRE(board_t::has_move(moves, { from, "D1" }));
+		REQUIRE(board_t::has_move(moves, { from, "E1" }));
+		REQUIRE(board_t::has_move(moves, { from, "F1" }));
+		REQUIRE(board_t::has_move(moves, { from, "G1" }));
+		REQUIRE(board_t::has_move(moves, { from, "H1" }));
+	}
+
+	SECTION("White rook, centre") {
+		board.current_player() = piece_t::WHITE;
+		const std::string from = "D4";
+		board.square(board_t::algebraic_2_index(from)) = piece_t::WhiteRook;
+		const auto moves = board.generate_moves();
+		REQUIRE(moves.size() == 14);
+
+		// Horizontal moves
+		REQUIRE(board_t::has_move(moves, { from, "A4" }));
+		REQUIRE(board_t::has_move(moves, { from, "B4" }));
+		REQUIRE(board_t::has_move(moves, { from, "C4" }));
+		REQUIRE(board_t::has_move(moves, { from, "E4" }));
+		REQUIRE(board_t::has_move(moves, { from, "F4" }));
+		REQUIRE(board_t::has_move(moves, { from, "G4" }));
+		REQUIRE(board_t::has_move(moves, { from, "H4" }));
+
+		// Vertical moves
+		REQUIRE(board_t::has_move(moves, { from, "D1" }));
+		REQUIRE(board_t::has_move(moves, { from, "D2" }));
+		REQUIRE(board_t::has_move(moves, { from, "D3" }));
+		REQUIRE(board_t::has_move(moves, { from, "D5" }));
+		REQUIRE(board_t::has_move(moves, { from, "D6" }));
+		REQUIRE(board_t::has_move(moves, { from, "D7" }));
+		REQUIRE(board_t::has_move(moves, { from, "D8" }));
+	}
+}

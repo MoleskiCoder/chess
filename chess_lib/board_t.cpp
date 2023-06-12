@@ -80,6 +80,19 @@ std::vector<move_t> board_t::generate_rook_moves(int from, piece_t::colour_t col
 	// cannot jump over other pieces
 	std::vector<move_t> moves;
 	const auto [column, row] = index_2_numeric(from);
+
+	// Horizontal moves
+	for (int candidate = 0; candidate < column; ++candidate)
+		moves.push_back(move_t(from, numeric_2_index(candidate, row)));
+	for (int candidate = column + 1; candidate < 8; ++candidate)
+		moves.push_back(move_t(from, numeric_2_index(candidate, row)));
+
+	// Vertical moves
+	for (int candidate = 0; candidate < row; ++candidate)
+		moves.push_back(move_t(from, numeric_2_index(column, candidate)));
+	for (int candidate = row + 1; candidate < 8; ++candidate)
+		moves.push_back(move_t(from, numeric_2_index(column, candidate)));
+
 	return moves;
 }
 

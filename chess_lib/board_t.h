@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <utility>
+#include <array>
 
 #include "square_t.h"
 #include "move_t.h"
@@ -13,35 +14,58 @@ private:
 	std::vector<square_t> m_squares;
 	piece_t::colour_t m_current_player = piece_t::WHITE;
 
+	static std::array<int, 8> _reverse_row;
 
 public:
 	board_t();
 
-	static auto xy_2_index(int x, int y) { return y * 8 + x; }
-	static std::pair<int, int> index_2_xy(int i) { return { i % 8, i / 8 }; }
+	// X/Y to/from index
 
-	static std::pair<int, int> index_2_numeric(int i) {
+	static constexpr auto xy_2_index(int x, int y) noexcept { return y * 8 + x; }
+	static constexpr std::pair<int, int> index_2_xy(int i) noexcept { return { i % 8, i / 8 }; }
+
+	// X/Y to/from numeric
+
+	static constexpr std::pair<int, int> index_2_numeric(int i) noexcept {
 		const auto [x, y] = index_2_xy(i);
-		static std::vector<int> y_translation = { 7, 6, 5, 4, 3, 2, 1, 0 };
-		return { x, y_translation[y] };
+		return { x, _reverse_row[y] };
 	}
 
-	static int numeric_2_index(int column, int row) {
-		static std::vector<int> row_translation = { 7, 6, 5, 4, 3, 2, 1, 0 };
-		return xy_2_index(column, row_translation[row]);
+	static constexpr int numeric_2_index(int column, int row) noexcept {
+		return xy_2_index(column, _reverse_row[row]);
 	}
 
-	static auto numeric_2_index(std::pair<int, int> input) { return numeric_2_index(input.first, input.second); }
+	static constexpr int numeric_2_index(std::pair<int, int> input) noexcept { return numeric_2_index(input.first, input.second); }
 
-	static std::pair<char, char> numeric_2_algebraic(int column, int row) {
+	// numeric to/from algebraic
+
+	static constexpr std::pair<char, char> numeric_2_algebraic(int column, int row) noexcept {
+		return { static_cast<char>('A' + column), static_cast<char>('1' + row) };
 	}
 
-	static auto numeric_2_algebraic(std::pair<int, int> input) { return numeric_2_algebraic(input.first, input.second); }
+	static constexpr auto numeric_2_algebraic(std::pair<int, int> input) noexcept { return numeric_2_algebraic(input.first, input.second); }
 
-	static std::pair<int, int> algebraic_2_numeric(char column, char row) {
+	static constexpr std::pair<int, int> algebraic_2_numeric(char column, char row) noexcept {
+		return { column - 'A', row - '1' };
 	}
 
-	static auto algebraic_2_numeric(std::pair<char, char> input) { return algebraic_2_numeric(input.first, input.second); }
+	static constexpr auto algebraic_2_numeric(std::pair<char, char> input) noexcept { return algebraic_2_numeric(input.first, input.second); }
+
+	// index to/from algebraic
+
+	static constexpr auto algebraic_2_index(std::pair<char, char> input) noexcept {
+		return numeric_2_index(algebraic_2_numeric(input));
+	}
+
+	static constexpr auto algebraic_2_index(char column, char row) noexcept {
+		return algebraic_2_index({ column, row });
+	}
+
+	static constexpr auto index_2_algebraic(int index) noexcept {
+		return numeric_2_algebraic(index_2_numeric(index));
+	}
+
+	// Accessors
 
 	auto& squares() { return m_squares; }
 	const auto& squares() const { return m_squares; }

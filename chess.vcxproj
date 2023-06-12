@@ -72,17 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)\chess_lib;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\$(IntDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)\chess_lib;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\$(IntDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)\chess_lib;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\github\chess\$(IntDir);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\$(IntDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)\chess_lib;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\github\chess\$(IntDir);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\$(IntDir);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

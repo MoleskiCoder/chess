@@ -2,6 +2,8 @@
 
 #include "board_t.h"
 
+std::array<int, 8> board_t::_reverse_row = { 7, 6, 5, 4, 3, 2, 1, 0 };
+
 board_t::board_t()
 : m_squares(64) {}
 
@@ -37,12 +39,13 @@ std::string board_t::representaton() const {
 }
 
 std::string board_t::representation(int idx) {
-	const auto [column, row] = index_2_numeric(idx);
-	return representation(column, row);
+	const auto [column, row] = index_2_algebraic(idx);
+	return std::string({ column, row });
 }
 
 std::string board_t::representation(int column, int row) {
-	return std::string({ (char)('A' + column), (char)('1' + row) });
+	const auto [column_char, row_char] = numeric_2_algebraic(column, row);
+	return std::string({ column_char, row_char });
 }
 
 std::string board_t::representation(move_t move) {

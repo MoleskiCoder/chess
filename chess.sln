@@ -11,6 +11,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chess_lib", "chess_lib\chess_lib.vcxproj", "{2858CA43-CC2B-414E-BDAF-C5711A98BA37}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chess_test", "chess_test\chess_test.vcxproj", "{BD3A14B2-854A-4A2D-8C14-85DC205F1CB7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2858CA43-CC2B-414E-BDAF-C5711A98BA37} = {2858CA43-CC2B-414E-BDAF-C5711A98BA37}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -163,8 +163,6 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	board_t board;
 	board.clear_squares();
 
-	//std::cout << board_t::representation(moves);
-
 	SECTION("White pawn, first move") {
 		board.current_player() = piece_t::WHITE;
 		const std::string from = "A2";
@@ -190,6 +188,8 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		board.square(board_t::algebraic_2_index(from)) = piece_t::BlackPawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 2);
+		REQUIRE(board_t::has_move(moves, { from, "A6" }));
+		REQUIRE(board_t::has_move(moves, { from, "A5" }));
 	}
 
 	SECTION("Black pawn, second move") {
@@ -198,5 +198,6 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		board.square(board_t::algebraic_2_index(from)) = piece_t::BlackPawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 1);
+		REQUIRE(board_t::has_move(moves, { from, "A5" }));
 	}
 }

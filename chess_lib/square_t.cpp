@@ -4,9 +4,7 @@
 
 square_t square_t::Empty;
 
-square_t::square_t() {}
-
-square_t::square_t(piece_t piece)
+square_t::square_t(piece_t piece) noexcept
 : m_contents(piece) {}
 
 std::string square_t::representation() const {

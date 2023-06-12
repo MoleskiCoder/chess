@@ -4,10 +4,7 @@
 
 std::array<int, 8> board_t::_reverse_row = { 7, 6, 5, 4, 3, 2, 1, 0 };
 
-board_t::board_t()
-: m_squares(64) {}
-
-void board_t::initialise() {
+void board_t::initialise() noexcept {
 	// N.B. Reversed row notation!!
 	squares() = {
 		piece_t::WhiteRook, piece_t::WhiteKnight,   piece_t::WhiteBishop,   piece_t::WhiteQueen,    piece_t::WhiteKing, piece_t::WhiteBishop,   piece_t::WhiteKnight,   piece_t::WhiteRook,
@@ -22,7 +19,7 @@ void board_t::initialise() {
 	current_player() = piece_t::WHITE;
 }
 
-void board_t::swap_current_player() {
+void board_t::swap_current_player() noexcept {
 	current_player() = current_player() == piece_t::WHITE ? piece_t::BLACK : piece_t::WHITE;
 }
 

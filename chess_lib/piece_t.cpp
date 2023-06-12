@@ -16,31 +16,33 @@ piece_t piece_t::WhiteQueen = { WHITE, QUEEN };
 piece_t piece_t::WhiteKing = { WHITE, KING };
 piece_t piece_t::WhitePawn = { WHITE, PAWN };
 
-piece_t::piece_t(colour_t colour, type_t type)
+piece_t::piece_t(colour_t colour, type_t type) noexcept
 : m_colour(colour),
-  m_type(type) {
-	m_representation = " ";
-	m_representation += m_colour == piece_t::WHITE ? "W" : "B";
-	switch (type) {
+  m_type(type) {}
+
+std::string piece_t::representation() const {
+	std::string returned = " ";
+	returned += colour() == piece_t::WHITE ? "W" : "B";
+	switch (type()) {
 	case piece_t::ROOK:
-		m_representation += "R";
+		returned += "R";
 		break;
 	case piece_t::KNIGHT:
-		m_representation += "N";
+		returned += "N";
 		break;
 	case piece_t::BISHOP:
-		m_representation += "B";
+		returned += "B";
 		break;
 	case piece_t::QUEEN:
-		m_representation += "Q";
+		returned += "Q";
 		break;
 	case piece_t::KING:
-		m_representation += "K";
+		returned += "K";
 		break;
 	case piece_t::PAWN:
-		m_representation += "P";
+		returned += "P";
 		break;
 	}
-	m_representation += " ";
+	returned += " ";
+	return returned;
 }
-

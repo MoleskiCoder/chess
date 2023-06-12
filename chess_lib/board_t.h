@@ -11,13 +11,13 @@
 
 class board_t final {
 private:
-	std::vector<square_t> m_squares;
+	std::array<square_t, 64> m_squares;
 	piece_t::colour_t m_current_player = piece_t::WHITE;
 
 	static std::array<int, 8> _reverse_row;
 
 public:
-	board_t();
+	constexpr board_t() noexcept {}
 
 	// X/Y to/from index
 
@@ -67,19 +67,19 @@ public:
 
 	// Accessors
 
-	auto& squares() { return m_squares; }
-	const auto& squares() const { return m_squares; }
+	constexpr auto& squares() noexcept { return m_squares; }
+	constexpr const auto& squares() const noexcept { return m_squares; }
 
-	const auto& square(int idx) const { return squares().at(idx); }
-	auto& square(int idx) { return squares().at(idx); }
+	constexpr const auto& square(int idx) const noexcept { return squares()[idx]; }
+	constexpr auto& square(int idx) noexcept { return squares()[idx]; }
 
-	const auto& square(int column, int row) const { return square(numeric_2_index(column, row)); }
-	auto& square(int column, int row) { return square(numeric_2_index(column, row)); }
+	constexpr const auto& square(int column, int row) const noexcept { return square(numeric_2_index(column, row)); }
+	constexpr auto& square(int column, int row) noexcept { return square(numeric_2_index(column, row)); }
 
-	auto& current_player() { return m_current_player; }
-	auto current_player() const { return m_current_player; }
+	constexpr auto& current_player() noexcept { return m_current_player; }
+	constexpr auto current_player() const noexcept { return m_current_player; }
 
-	void swap_current_player();
+	void swap_current_player() noexcept;
 
 	std::string representaton() const;
 	static std::string representation(int idx);
@@ -90,7 +90,7 @@ public:
 
 	static std::string representation(piece_t::colour_t colour);
 
-	void initialise();
+	void initialise() noexcept;
 
 	std::vector<move_t> generate_rook_moves(int idx, piece_t::colour_t colour) const;
 	std::vector<move_t> generate_knight_moves(int idx, piece_t::colour_t colour) const;

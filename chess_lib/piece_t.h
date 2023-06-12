@@ -24,13 +24,13 @@ public:
 private:
 	colour_t m_colour;
 	type_t m_type;
-	std::string m_representation;
 
 public:
-	piece_t(colour_t colour, type_t type);
+	piece_t(colour_t colour, type_t type) noexcept;
 
-	auto colour() const { return m_colour; }
-	auto type() const { return m_type; }
-	const auto& representation() const { return m_representation; }
+	constexpr auto colour() const noexcept { return m_colour; }
+	constexpr auto type() const noexcept { return m_type; }
+
+	std::string representation() const;
 };
 

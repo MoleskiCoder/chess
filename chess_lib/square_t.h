@@ -12,11 +12,11 @@ private:
 	std::optional<piece_t> m_contents;
 
 public:
-	square_t();
-	square_t(piece_t piece);
+	constexpr square_t() noexcept {}
+	square_t(piece_t piece) noexcept;
 
-	auto& contents() { return m_contents; }
-	const auto& contents() const { return m_contents; }
+	constexpr auto& contents() noexcept { return m_contents; }
+	constexpr const auto& contents() const noexcept { return m_contents; }
 
 	std::string representation() const;
 };

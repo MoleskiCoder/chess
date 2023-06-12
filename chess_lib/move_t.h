@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 class move_t final {
 private:
 	int m_from;
@@ -7,8 +9,12 @@ private:
 
 public:
 	move_t(int from, int to) noexcept;
+	move_t(const std::pair<char, char>& from, const std::pair<char, char>& to) noexcept;
 
 	constexpr auto from() const noexcept { return m_from; }
 	constexpr auto to() const noexcept { return m_to; }
-};
 
+	constexpr bool operator==(const move_t& rhs) const noexcept {
+		return (from() == rhs.from()) && (to() == rhs.to());
+	}
+};

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <utility>
@@ -79,6 +80,7 @@ public:
 	constexpr auto& current_player() noexcept { return m_current_player; }
 	constexpr auto current_player() const noexcept { return m_current_player; }
 
+	void clear_squares() noexcept;
 	void swap_current_player() noexcept;
 
 	std::string representaton() const;
@@ -103,4 +105,12 @@ public:
 	std::vector<move_t> generate_moves(int idx, piece_t::colour_t colour) const;
 	std::vector<move_t> generate_moves(piece_t::colour_t colour) const;
 	std::vector<move_t> generate_moves() const;
+
+	static auto find_move(const std::vector<move_t>& moves, const move_t& move) {
+		return std::find(moves.begin(), moves.end(), move);
+	}
+
+	static auto has_move(const std::vector<move_t>& moves, const move_t& move) {
+		return find_move(moves, move) != moves.end();
+	}
 };

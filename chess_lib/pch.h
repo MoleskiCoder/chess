@@ -7,6 +7,7 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <exception>

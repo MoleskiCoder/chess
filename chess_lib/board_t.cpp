@@ -4,6 +4,19 @@
 
 std::array<int, 8> board_t::_reverse_row = { 7, 6, 5, 4, 3, 2, 1, 0 };
 
+void board_t::clear_squares() noexcept {
+	squares() = {
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
+	};
+}
+
 void board_t::initialise() noexcept {
 	// N.B. Reversed row notation!!
 	squares() = {
@@ -117,7 +130,7 @@ std::vector<move_t> board_t::generate_pawn_moves(int from, piece_t::colour_t col
 		break;
 	case piece_t::BLACK:
 		moves.push_back(move_t(from, numeric_2_index(column, row - 1)));
-		if (row == 1)
+		if (row == 6)
 			moves.push_back(move_t(from, numeric_2_index(column, row - 2)));
 		break;
 	default:

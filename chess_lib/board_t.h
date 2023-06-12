@@ -59,7 +59,11 @@ public:
 	}
 
 	static constexpr auto algebraic_2_index(char column, char row) noexcept {
-		return algebraic_2_index({ column, row });
+		return algebraic_2_index(std::pair<char, char>(column, row));
+	}
+
+	static constexpr auto algebraic_2_index(const std::string& input) noexcept {
+		return algebraic_2_index(input.c_str()[0], input.c_str()[1]);
 	}
 
 	static constexpr auto index_2_algebraic(int index) noexcept {

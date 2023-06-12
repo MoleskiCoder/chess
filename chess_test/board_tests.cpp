@@ -167,26 +167,26 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 
 	SECTION("White pawn, first move") {
 		board.current_player() = piece_t::WHITE;
-		const std::pair<char, char> from = { 'A', '2' };
+		const std::string from = "A2";
 		board.square(board_t::algebraic_2_index(from)) = piece_t::WhitePawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 2);
-		REQUIRE(board_t::has_move(moves, { from, std::pair<char, char>('A', '3') }));
-		REQUIRE(board_t::has_move(moves, { from, std::pair<char, char>('A', '4') }));
+		REQUIRE(board_t::has_move(moves, { from, "A3" }));
+		REQUIRE(board_t::has_move(moves, { from, "A4" }));
 	}
 
 	SECTION("White pawn, second move") {
 		board.current_player() = piece_t::WHITE;
-		const std::pair<char, char> from = { 'A', '3' };
+		const std::string from = "A3";
 		board.square(board_t::algebraic_2_index(from)) = piece_t::WhitePawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 1);
-		REQUIRE(board_t::has_move(moves, { from, std::pair<char, char>('A', '4') }));
+		REQUIRE(board_t::has_move(moves, { from, "A4" }));
 	}
 
 	SECTION("Black pawn, first move") {
 		board.current_player() = piece_t::BLACK;
-		const std::pair<char, char> from = { 'A', '7' };
+		const std::string from = "A7";
 		board.square(board_t::algebraic_2_index(from)) = piece_t::BlackPawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 2);
@@ -194,7 +194,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 
 	SECTION("Black pawn, second move") {
 		board.current_player() = piece_t::BLACK;
-		const std::pair<char, char> from = { 'A', '6' };
+		const std::string from = "A6";
 		board.square(board_t::algebraic_2_index(from)) = piece_t::BlackPawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 1);

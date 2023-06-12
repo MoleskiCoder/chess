@@ -13,26 +13,35 @@ private:
 	std::vector<square_t> m_squares;
 	piece_t::colour_t m_current_player = piece_t::WHITE;
 
-	static auto _xy_2_index(int x, int y) { return y * 8 + x; }
-	static std::pair<int, int> _index_2_xy(int i) { return { i % 8, i / 8 }; }
 
 public:
 	board_t();
 
+	static auto xy_2_index(int x, int y) { return y * 8 + x; }
+	static std::pair<int, int> index_2_xy(int i) { return { i % 8, i / 8 }; }
+
 	static std::pair<int, int> index_2_numeric(int i) {
-		const auto [x, y] = _index_2_xy(i);
+		const auto [x, y] = index_2_xy(i);
 		static std::vector<int> y_translation = { 7, 6, 5, 4, 3, 2, 1, 0 };
-		const auto column = x;
-		const auto row = y_translation[y];
-		return { column, row };
+		return { x, y_translation[y] };
 	}
 
 	static int numeric_2_index(int column, int row) {
 		static std::vector<int> row_translation = { 7, 6, 5, 4, 3, 2, 1, 0 };
-		const auto x = column;
-		const auto y = row_translation[row];
-		return _xy_2_index(x, y);
+		return xy_2_index(column, row_translation[row]);
 	}
+
+	static auto numeric_2_index(std::pair<int, int> input) { return numeric_2_index(input.first, input.second); }
+
+	static std::pair<char, char> numeric_2_algebraic(int column, int row) {
+	}
+
+	static auto numeric_2_algebraic(std::pair<int, int> input) { return numeric_2_algebraic(input.first, input.second); }
+
+	static std::pair<int, int> algebraic_2_numeric(char column, char row) {
+	}
+
+	static auto algebraic_2_numeric(std::pair<char, char> input) { return algebraic_2_numeric(input.first, input.second); }
 
 	auto& squares() { return m_squares; }
 	const auto& squares() const { return m_squares; }

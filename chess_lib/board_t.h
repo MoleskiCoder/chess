@@ -32,11 +32,13 @@ public:
 		return { x, _reverse_row[y] };
 	}
 
-	static constexpr int numeric_2_index(int column, int row) noexcept {
+	static constexpr auto numeric_2_index(int column, int row) noexcept {
 		return xy_2_index(column, _reverse_row[row]);
 	}
 
-	static constexpr int numeric_2_index(std::pair<int, int> input) noexcept { return numeric_2_index(input.first, input.second); }
+	static constexpr auto numeric_2_index(std::pair<int, int> input) noexcept {
+		return numeric_2_index(input.first, input.second);
+	}
 
 	// numeric to/from algebraic
 
@@ -44,13 +46,17 @@ public:
 		return { static_cast<char>('A' + column), static_cast<char>('1' + row) };
 	}
 
-	static constexpr auto numeric_2_algebraic(std::pair<int, int> input) noexcept { return numeric_2_algebraic(input.first, input.second); }
+	static constexpr auto numeric_2_algebraic(std::pair<int, int> input) noexcept {
+		return numeric_2_algebraic(input.first, input.second);
+	}
 
 	static constexpr std::pair<int, int> algebraic_2_numeric(char column, char row) noexcept {
 		return { column - 'A', row - '1' };
 	}
 
-	static constexpr auto algebraic_2_numeric(std::pair<char, char> input) noexcept { return algebraic_2_numeric(input.first, input.second); }
+	static constexpr auto algebraic_2_numeric(std::pair<char, char> input) noexcept {
+		return algebraic_2_numeric(input.first, input.second);
+	}
 
 	// index to/from algebraic
 
@@ -78,8 +84,13 @@ public:
 	constexpr const auto& square(int idx) const noexcept { return squares()[idx]; }
 	constexpr auto& square(int idx) noexcept { return squares()[idx]; }
 
-	constexpr const auto& square(int column, int row) const noexcept { return square(numeric_2_index(column, row)); }
-	constexpr auto& square(int column, int row) noexcept { return square(numeric_2_index(column, row)); }
+	constexpr const auto& square(int column, int row) const noexcept {
+		return square(numeric_2_index(column, row));
+	}
+	
+	constexpr auto& square(int column, int row) noexcept {
+		return square(numeric_2_index(column, row));
+	}
 
 	constexpr auto& current_player() noexcept { return m_current_player; }
 	constexpr auto current_player() const noexcept { return m_current_player; }
@@ -92,7 +103,7 @@ public:
 	static std::string representation(int column, int row);
 
 	static std::string representation(move_t move);
-	static std::string representation(std::vector<move_t> moves);
+	static std::string representation(const std::vector<move_t>& moves);
 
 	static std::string representation(piece_t::colour_t colour);
 

@@ -64,7 +64,7 @@ std::string board_t::representation(move_t move) {
 	return oss.str();
 }
 
-std::string board_t::representation(std::vector<move_t> moves) {
+std::string board_t::representation(const std::vector<move_t>& moves) {
 	std::ostringstream oss;
 	for (const auto& move : moves)
 		oss << representation(move) << std::endl;

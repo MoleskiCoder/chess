@@ -13,10 +13,10 @@ public:
 	move_t(const std::pair<char, char>& from, const std::pair<char, char>& to) noexcept;
 	move_t(const std::string& from, const std::string& to) noexcept;
 
-	constexpr auto from() const noexcept { return m_from; }
-	constexpr auto to() const noexcept { return m_to; }
+	[[nodiscard]] constexpr auto from() const noexcept { return m_from; }
+	[[nodiscard]] constexpr auto to() const noexcept { return m_to; }
 
-	constexpr bool operator==(const move_t& rhs) const noexcept {
+	[[nodiscard]] constexpr bool operator==(const move_t& rhs) const noexcept {
 		return (from() == rhs.from()) && (to() == rhs.to());
 	}
 };

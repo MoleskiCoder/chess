@@ -166,7 +166,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("White pawn, first move") {
 		board.current_player() = piece_t::WHITE;
 		const std::string from = "A2";
-		board.square(board_t::algebraic_2_index(from)) = piece_t::WhitePawn;
+		board.square(from) = piece_t::WhitePawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 2);
 		REQUIRE(board_t::has_move(moves, { from, "A3" }));
@@ -176,7 +176,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("White pawn, second move") {
 		board.current_player() = piece_t::WHITE;
 		const std::string from = "A3";
-		board.square(board_t::algebraic_2_index(from)) = piece_t::WhitePawn;
+		board.square(from) = piece_t::WhitePawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 1);
 		REQUIRE(board_t::has_move(moves, { from, "A4" }));
@@ -185,7 +185,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("Black pawn, first move") {
 		board.current_player() = piece_t::BLACK;
 		const std::string from = "A7";
-		board.square(board_t::algebraic_2_index(from)) = piece_t::BlackPawn;
+		board.square(from) = piece_t::BlackPawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 2);
 		REQUIRE(board_t::has_move(moves, { from, "A6" }));
@@ -195,7 +195,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("Black pawn, second move") {
 		board.current_player() = piece_t::BLACK;
 		const std::string from = "A6";
-		board.square(board_t::algebraic_2_index(from)) = piece_t::BlackPawn;
+		board.square(from) = piece_t::BlackPawn;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 1);
 		REQUIRE(board_t::has_move(moves, { from, "A5" }));
@@ -210,7 +210,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 	SECTION("White rook, bottom left corner") {
 		board.current_player() = piece_t::WHITE;
 		const std::string from = "A1";
-		board.square(board_t::algebraic_2_index(from)) = piece_t::WhiteRook;
+		board.square(from) = piece_t::WhiteRook;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 14);
 
@@ -236,7 +236,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 	SECTION("White rook, centre") {
 		board.current_player() = piece_t::WHITE;
 		const std::string from = "D4";
-		board.square(board_t::algebraic_2_index(from)) = piece_t::WhiteRook;
+		board.square(from) = piece_t::WhiteRook;
 		const auto moves = board.generate_moves();
 		REQUIRE(moves.size() == 14);
 

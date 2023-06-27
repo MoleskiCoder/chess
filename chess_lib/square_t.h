@@ -15,9 +15,9 @@ public:
 	constexpr square_t() noexcept {}
 	square_t(piece_t piece) noexcept;
 
-	constexpr auto& contents() noexcept { return m_contents; }
-	constexpr const auto& contents() const noexcept { return m_contents; }
+	[[nodiscard]] constexpr auto& contents() noexcept { return m_contents; }
+	[[nodiscard]] constexpr const auto& contents() const noexcept { return m_contents; }
 
-	std::string representation() const;
+	[[nodiscard]] std::string representation() const;
 };
 

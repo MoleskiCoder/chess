@@ -28,9 +28,9 @@ private:
 public:
 	piece_t(colour_t colour, type_t type) noexcept;
 
-	constexpr auto colour() const noexcept { return m_colour; }
-	constexpr auto type() const noexcept { return m_type; }
+	[[nodiscard]] constexpr auto colour() const noexcept { return m_colour; }
+	[[nodiscard]] constexpr auto type() const noexcept { return m_type; }
 
-	std::string representation() const;
+	[[nodiscard]] std::string representation() const;
 };
 

@@ -4,16 +4,16 @@
 
 #include "board_t.h"
 
-class game_t {
+class game_t final {
 private:
 	board_t m_board;
 
 public:
-	const auto& board() const { return m_board; }
-	auto& board() { return m_board; }
+	[[nodiscard]] constexpr const auto& board() const noexcept { return m_board; }
+	[[nodiscard]] constexpr auto& board() noexcept { return m_board; }
 
 	void initialise();
 
-	std::string representation() const;
+	[[nodiscard]] std::string representation() const;
 };
 

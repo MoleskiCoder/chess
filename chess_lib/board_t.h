@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cassert>
 #include <algorithm>
 #include <vector>
 #include <string>
@@ -41,6 +42,7 @@ public:
 	}
 
 	[[nodiscard]] static constexpr auto numeric_2_index(int column, int row) noexcept {
+		assert(row >= 0 && row <= 7 && "row is out of range");
 		return xy_2_index(column, _reverse_row[row]);
 	}
 
@@ -136,37 +138,8 @@ public:
 	[[nodiscard]] static std::string representation(int idx);
 	[[nodiscard]] static std::string representation(int column, int row);
 
-	[[nodiscard]] static std::string representation(move_t move);
-	[[nodiscard]] static std::string representation(const std::vector<move_t>& moves);
 
 	[[nodiscard]] static std::string representation(piece_t::colour_t colour);
 
 	void initialise() noexcept;
-
-	[[nodiscard]] std::vector<move_t> generate_rook_moves(int idx, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_knight_moves(int idx, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_bishop_moves(int idx, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_queen_moves(int idx, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_king_moves(int idx, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_pawn_moves(int idx, piece_t::colour_t colour) const;
-
-	[[nodiscard]] std::vector<move_t> generate_moves(int idx, piece_t piece) const;
-	[[nodiscard]] std::vector<move_t> generate_moves(int idx, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_moves(piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_moves() const;
-
-	[[nodiscard]] static auto find_move(const std::vector<move_t>& moves, const move_t& move) {
-		return std::find(moves.begin(), moves.end(), move);
-	}
-	
-	[[nodiscard]] static auto has_move(const std::vector<move_t>& moves, const move_t& move) {
-		return find_move(moves, move) != moves.end();
-	}
-
-private:
-	static void add(std::vector<move_t>& moves, int from, int to);
-	static void add(std::vector<move_t>& moves, int from, int column, int row);
-
-	bool maybe_add(std::vector<move_t>& moves, int from, int column, int row) const;
-	bool maybe_add(std::vector<move_t>& moves, int from, int to) const;
 };

@@ -19,4 +19,7 @@ public:
 	[[nodiscard]] constexpr bool operator==(const move_t& rhs) const noexcept {
 		return (from() == rhs.from()) && (to() == rhs.to());
 	}
+
+	[[nodiscard]] std::string representation() const;
+	[[nodiscard]] static std::string representation(const std::vector<move_t>& moves);
 };

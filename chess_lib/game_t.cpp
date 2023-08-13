@@ -8,6 +8,6 @@ void game_t::initialise() {
 
 std::string game_t::representation() const {
 	std::ostringstream oss;
-	oss << board().representaton() << std::endl;
+	oss << board().representation() << std::endl;
 	return oss.str();
 }

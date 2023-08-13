@@ -36,7 +36,7 @@ void board_t::swap_current_player() noexcept {
 	current_player() = current_player() == piece_t::WHITE ? piece_t::BLACK : piece_t::WHITE;
 }
 
-std::string board_t::representaton() const {
+std::string board_t::representation() const {
 	std::ostringstream oss;
 	for (int row = 0; row < 8; ++row) {
 		oss << std::endl;
@@ -83,15 +83,15 @@ std::vector<move_t> board_t::generate_rook_moves(int from, piece_t::colour_t col
 
 	// Horizontal moves
 	for (int candidate = 0; candidate < column; ++candidate)
-		moves.push_back(move_t(from, numeric_2_index(candidate, row)));
+		maybe_add(moves, from, candidate, row);
 	for (int candidate = column + 1; candidate < 8; ++candidate)
-		moves.push_back(move_t(from, numeric_2_index(candidate, row)));
+		maybe_add(moves, from, candidate, row);
 
 	// Vertical moves
 	for (int candidate = 0; candidate < row; ++candidate)
-		moves.push_back(move_t(from, numeric_2_index(column, candidate)));
+		maybe_add(moves, from, column, candidate);
 	for (int candidate = row + 1; candidate < 8; ++candidate)
-		moves.push_back(move_t(from, numeric_2_index(column, candidate)));
+		maybe_add(moves, from, column, candidate);
 
 	return moves;
 }
@@ -110,6 +110,31 @@ std::vector<move_t> board_t::generate_bishop_moves(int from, piece_t::colour_t c
 	// cannot jump over other pieces
 	std::vector<move_t> moves;
 	const auto [column, row] = index_2_numeric(from);
+
+	// Right to left
+	{
+		int c_row_high = row;
+		int c_row_low = row;
+		for (int c_col = column - 1; c_col > 0; --c_col) {
+			if (c_row_high++ < 8)
+				maybe_add(moves, from, c_col, c_row_high);
+			if (c_row_low-- > 1)
+				maybe_add(moves, from, c_col, c_row_low);
+		}
+	}
+
+	// Left to right
+	{
+		int c_row_high = row;
+		int c_row_low = row;
+		for (int c_col = column + 1; c_col < 9; ++c_col) {
+			if (c_row_high++ < 8)
+				maybe_add(moves, from, c_col, c_row_high);
+			if (c_row_low-- > 1)
+				maybe_add(moves, from, c_col, c_row_low);
+		}
+	}
+
 	return moves;
 }
 
@@ -137,14 +162,14 @@ std::vector<move_t> board_t::generate_pawn_moves(int from, piece_t::colour_t col
 	const auto [column, row] = index_2_numeric(from);
 	switch (colour) {
 	case piece_t::WHITE:
-		moves.push_back(move_t(from, numeric_2_index(column, row + 1)));
+		maybe_add(moves, from, column, row + 1);
 		if (row == 1)
-			moves.push_back(move_t(from, numeric_2_index(column, row + 2)));
+			maybe_add(moves, from, column, row + 2);
 		break;
 	case piece_t::BLACK:
-		moves.push_back(move_t(from, numeric_2_index(column, row - 1)));
+		maybe_add(moves, from, column, row - 1);
 		if (row == 6)
-			moves.push_back(move_t(from, numeric_2_index(column, row - 2)));
+			maybe_add(moves, from, column, row - 2);
 		break;
 	default:
 		assert(false && "Unknown piece colour");
@@ -196,4 +221,30 @@ std::vector<move_t> board_t::generate_moves(piece_t::colour_t colour) const {
 
 std::vector<move_t> board_t::generate_moves() const {
 	return generate_moves(current_player());
+}
+
+//
+
+void board_t::add(std::vector<move_t>& moves, int from, int to) {
+	const move_t move = { from, to };
+	moves.push_back(move);
+}
+
+void board_t::add(std::vector<move_t>& moves, int from, int column, int row) {
+	add(moves, from, numeric_2_index(column, row));
+}
+
+bool board_t::maybe_add(std::vector<move_t>& moves, int from, int column, int row) const {
+	const auto to = numeric_2_index(column, row);
+	return maybe_add(moves, from, to);
+}
+
+bool board_t::maybe_add(std::vector<move_t>& moves, int from, int to) const {
+	const auto& source = square(from).contents();
+	const auto& destination = square(to).contents();
+	assert(source.has_value() && "Impossible move from an empty square");
+	const bool allowed = !destination.has_value() || (source->colour() != destination->colour());
+	if (allowed)
+		add(moves, from, to);
+	return allowed;
 }

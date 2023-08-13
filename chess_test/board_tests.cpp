@@ -111,22 +111,22 @@ TEST_CASE("Vector index to Numeric position", "[index_2_numeric]") {
 TEST_CASE("Algebraic position to vector index", "[algebraic_2_index]") {
 
 	SECTION("Bottom/left corner of board") {
-		const auto index = board_t::algebraic_2_index('A', '1');
-		REQUIRE(index == board_t::numeric_2_index(0, 0));
+		const auto index = board_t::algebraic_2_index("A1");
+		REQUIRE(index == board_t::xy_2_index(0, 7));
 	}
 
 	SECTION("Bottom/right corner of board") {
-		const auto index = board_t::algebraic_2_index('H', '1');
-		REQUIRE(index == 7 * 8 + 7);
+		const auto index = board_t::algebraic_2_index("H1");
+		REQUIRE(index == board_t::xy_2_index(7, 7));
 	}
 
 	SECTION("Top/left corner of board") {
-		const auto index = board_t::numeric_2_index(0, 7);
+		const auto index = board_t::algebraic_2_index("A8");
 		REQUIRE(index == board_t::xy_2_index(0, 0));
 	}
 
 	SECTION("Top/right corner of board") {
-		const auto index = board_t::numeric_2_index(7, 7);
+		const auto index = board_t::algebraic_2_index("H8");
 		REQUIRE(index == board_t::xy_2_index(7, 0));
 	}
 }
@@ -134,27 +134,27 @@ TEST_CASE("Algebraic position to vector index", "[algebraic_2_index]") {
 TEST_CASE("Vector index to algebraic position", "[index_2_algebraic]") {
 
 	SECTION("Top/left corner of board") {
-		const auto [column, row] = board_t::index_2_numeric(0);
-		REQUIRE(column == 0);
-		REQUIRE(row == 7);
+		const auto [column, row] = board_t::index_2_algebraic(0);
+		REQUIRE(column == 'A');
+		REQUIRE(row == '8');
 	}
 
 	SECTION("Top/right corner of board") {
-		const auto [column, row] = board_t::index_2_numeric(7);
-		REQUIRE(column == 7);
-		REQUIRE(row == 7);
+		const auto [column, row] = board_t::index_2_algebraic(7);
+		REQUIRE(column == 'H');
+		REQUIRE(row == '8');
 	}
 
 	SECTION("Bottom/left corner of board") {
-		const auto [column, row] = board_t::index_2_numeric(7 * 8);
-		REQUIRE(column == 0);
-		REQUIRE(row == 0);
+		const auto [column, row] = board_t::index_2_algebraic(7 * 8);
+		REQUIRE(column == 'A');
+		REQUIRE(row == '1');
 	}
 
 	SECTION("Bottom/right corner of board") {
-		const auto [column, row] = board_t::index_2_numeric(8 * 8 - 1);
-		REQUIRE(column == 7);
-		REQUIRE(row == 0);
+		const auto [column, row] = board_t::index_2_algebraic(8 * 8 - 1);
+		REQUIRE(column == 'H');
+		REQUIRE(row == '1');
 	}
 }
 
@@ -259,3 +259,52 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 		REQUIRE(board_t::has_move(moves, { from, "D8" }));
 	}
 }
+
+//TEST_CASE("Test bishop move generation", "[generate_bishop_moves]") {
+//
+//	board_t board;
+//	board.clear_squares();
+//
+//	SECTION("White bishop, bottom left corner") {
+//		board.current_player() = piece_t::WHITE;
+//		const std::string from = "A1";
+//		board.square(from) = piece_t::WhiteBishop;
+//		const auto moves = board.generate_moves();
+//
+//		REQUIRE(moves.size() == 7);
+//
+//		// Diagonal moves
+//		REQUIRE(board_t::has_move(moves, { from, "B2" }));
+//		REQUIRE(board_t::has_move(moves, { from, "C3" }));
+//		REQUIRE(board_t::has_move(moves, { from, "D4" }));
+//		REQUIRE(board_t::has_move(moves, { from, "E5" }));
+//		REQUIRE(board_t::has_move(moves, { from, "F6" }));
+//		REQUIRE(board_t::has_move(moves, { from, "G7" }));
+//		REQUIRE(board_t::has_move(moves, { from, "H8" }));
+//	}
+//
+//	SECTION("White bishop, centre") {
+//		board.current_player() = piece_t::WHITE;
+//		const std::string from = "D4";
+//		board.square(from) = piece_t::WhiteBishop;
+//		const auto moves = board.generate_moves();
+//		REQUIRE(moves.size() == 13);
+//
+//		// Diagonal BL -> TR
+//		REQUIRE(board_t::has_move(moves, { from, "A1" }));
+//		REQUIRE(board_t::has_move(moves, { from, "B2" }));
+//		REQUIRE(board_t::has_move(moves, { from, "C3" }));
+//		REQUIRE(board_t::has_move(moves, { from, "E5" }));
+//		REQUIRE(board_t::has_move(moves, { from, "F6" }));
+//		REQUIRE(board_t::has_move(moves, { from, "G7" }));
+//		REQUIRE(board_t::has_move(moves, { from, "H8" }));
+//
+//		// Diagonal TL -> BR
+//		REQUIRE(board_t::has_move(moves, { from, "A7" }));
+//		REQUIRE(board_t::has_move(moves, { from, "B6" }));
+//		REQUIRE(board_t::has_move(moves, { from, "C5" }));
+//		REQUIRE(board_t::has_move(moves, { from, "E3" }));
+//		REQUIRE(board_t::has_move(moves, { from, "F2" }));
+//		REQUIRE(board_t::has_move(moves, { from, "G1" }));
+//	}
+//}

@@ -22,8 +22,16 @@ public:
 
 	// X/Y to/from index
 
-	[[nodiscard]] static constexpr auto xy_2_index(int x, int y) noexcept { return y * 8 + x; }
-	[[nodiscard]] static constexpr std::pair<int, int> index_2_xy(int i) noexcept { return { i % 8, i / 8 }; }
+	[[nodiscard]] static constexpr auto xy_2_index(int x, int y) noexcept {
+		assert(x >= 0 && x <= 7 && "x is out of range");
+		assert(y >= 0 && y <= 7 && "y is out of range");
+		return y * 8 + x;
+	}
+	
+	[[nodiscard]] static constexpr std::pair<int, int> index_2_xy(int i) noexcept {
+		assert(i >= 0 && i <= 63 && "i is out of range");
+		return { i % 8, i / 8 };
+	}
 
 	// X/Y to/from numeric
 
@@ -43,6 +51,8 @@ public:
 	// numeric to/from algebraic
 
 	[[nodiscard]] static constexpr std::pair<char, char> numeric_2_algebraic(int column, int row) noexcept {
+		assert(column >= 0 && column <= 7);
+		assert(row >= 0 && row <= 7);
 		return { static_cast<char>('A' + column), static_cast<char>('1' + row) };
 	}
 	
@@ -51,7 +61,14 @@ public:
 	}
 	
 	[[nodiscard]] static constexpr std::pair<int, int> algebraic_2_numeric(char column, char row) noexcept {
+		assert(column >= 'A' && column <= 'H');
+		assert(row >= '1' && row <= '8');
 		return { column - 'A', row - '1' };
+	}
+
+	[[nodiscard]] static auto algebraic_2_numeric(const std::string& input) noexcept {
+		assert(input.length() <= 2);
+		return algebraic_2_numeric(input.c_str()[0], input.c_str()[1]);
 	}
 
 	[[nodiscard]] static constexpr auto algebraic_2_numeric(std::pair<char, char> input) noexcept {
@@ -68,7 +85,8 @@ public:
 		return algebraic_2_index(std::pair<char, char>(column, row));
 	}
 
-	[[nodiscard]] static constexpr auto algebraic_2_index(const std::string& input) noexcept {
+	[[nodiscard]] static auto algebraic_2_index(const std::string& input) noexcept {
+		assert(input.length() <= 2);
 		return algebraic_2_index(input.c_str()[0], input.c_str()[1]);
 	}
 
@@ -114,7 +132,7 @@ public:
 	void clear_squares() noexcept;
 	void swap_current_player() noexcept;
 
-	[[nodiscard]] std::string representaton() const;
+	[[nodiscard]] std::string representation() const;
 	[[nodiscard]] static std::string representation(int idx);
 	[[nodiscard]] static std::string representation(int column, int row);
 
@@ -144,4 +162,11 @@ public:
 	[[nodiscard]] static auto has_move(const std::vector<move_t>& moves, const move_t& move) {
 		return find_move(moves, move) != moves.end();
 	}
+
+private:
+	static void add(std::vector<move_t>& moves, int from, int to);
+	static void add(std::vector<move_t>& moves, int from, int column, int row);
+
+	bool maybe_add(std::vector<move_t>& moves, int from, int column, int row) const;
+	bool maybe_add(std::vector<move_t>& moves, int from, int to) const;
 };

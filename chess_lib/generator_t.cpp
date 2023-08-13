@@ -102,8 +102,9 @@ std::vector<move_t> generator_t::generate_bishop_moves(int from, piece_t::colour
 std::vector<move_t> generator_t::generate_queen_moves(int from, piece_t::colour_t colour) const {
 	// Moves in any direction
 	// cannot jump over other pieces
-	std::vector<move_t> moves;
-	const auto [column, row] = board_t::index_2_numeric(from);
+	auto moves = generate_rook_moves(from, colour);
+	const auto bishop_moves = generate_bishop_moves(from, colour);
+	moves.insert(moves.begin(), bishop_moves.begin(), bishop_moves.end());
 	return moves;
 }
 

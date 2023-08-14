@@ -16,10 +16,6 @@ piece_t piece_t::WhiteQueen = { WHITE, QUEEN };
 piece_t piece_t::WhiteKing = { WHITE, KING };
 piece_t piece_t::WhitePawn = { WHITE, PAWN };
 
-piece_t::piece_t(colour_t colour, type_t type) noexcept
-: m_colour(colour),
-  m_type(type) {}
-
 std::string piece_t::representation() const {
 	std::string returned = " ";
 	returned += colour() == piece_t::WHITE ? "W" : "B";

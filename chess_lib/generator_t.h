@@ -20,7 +20,8 @@ private:
 	bool maybe_add(std::vector<move_t>& moves, int from, int to) const;
 
 public:
-	generator_t(const board_t& board);
+	constexpr generator_t(const board_t& board) noexcept
+	: m_board(board) {}
 
 	[[nodiscard]] std::vector<move_t> generate_rook_moves(int idx, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_knight_moves(int idx, piece_t::colour_t colour) const;
@@ -41,6 +42,5 @@ public:
 	[[nodiscard]] static auto has_move(const std::vector<move_t>& moves, const move_t& move) {
 		return find_move(moves, move) != moves.end();
 	}
-
 };
 

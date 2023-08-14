@@ -1,26 +1,17 @@
 #include "pch.h"
 #include "generator_t.h"
 
-#include <iostream>
-
-//
-
-generator_t::generator_t(const board_t& board)
-: m_board(board) {}
-
-//
-
 void generator_t::add(std::vector<move_t>& moves, int from, int to) {
 	const move_t move = { from, to };
 	moves.push_back(move);
 }
 
 void generator_t::add(std::vector<move_t>& moves, int from, int column, int row) {
-	add(moves, from, board_t::numeric_2_index(column, row));
+	add(moves, from, notation_t::numeric_2_index(column, row));
 }
 
 bool generator_t::maybe_add(std::vector<move_t>& moves, int from, int column, int row) const {
-	const auto to = board_t::numeric_2_index(column, row);
+	const auto to = notation_t::numeric_2_index(column, row);
 	return maybe_add(moves, from, to);
 }
 
@@ -40,7 +31,7 @@ std::vector<move_t> generator_t::generate_rook_moves(int from, piece_t::colour_t
 	// moves vertically and horizontally
 	// cannot jump over other pieces
 	std::vector<move_t> moves;
-	const auto [column, row] = board_t::index_2_numeric(from);
+	const auto [column, row] = notation_t::index_2_numeric(from);
 
 	// Horizontal moves
 	for (int candidate = 0; candidate < column; ++candidate)
@@ -62,7 +53,7 @@ std::vector<move_t> generator_t::generate_knight_moves(int from, piece_t::colour
 	// two squares vertical, one horizontal
 	// may jump over any other piece
 	std::vector<move_t> moves;
-	const auto [column, row] = board_t::index_2_numeric(from);
+	const auto [column, row] = notation_t::index_2_numeric(from);
 	return moves;
 }
 
@@ -70,7 +61,7 @@ std::vector<move_t> generator_t::generate_bishop_moves(int from, piece_t::colour
 	// moves diagonally
 	// cannot jump over other pieces
 	std::vector<move_t> moves;
-	const auto [column, row] = board_t::index_2_numeric(from);
+	const auto [column, row] = notation_t::index_2_numeric(from);
 
 	// Right to left
 	{
@@ -111,7 +102,7 @@ std::vector<move_t> generator_t::generate_queen_moves(int from, piece_t::colour_
 std::vector<move_t> generator_t::generate_king_moves(int from, piece_t::colour_t colour) const {
 	// Moves in any direction, only one square
 	std::vector<move_t> moves;
-	const auto [column, row] = board_t::index_2_numeric(from);
+	const auto [column, row] = notation_t::index_2_numeric(from);
 	return moves;
 }
 
@@ -121,7 +112,7 @@ std::vector<move_t> generator_t::generate_pawn_moves(int from, piece_t::colour_t
 	// Moves one or two squares first move, then one thereafter
 	// cannot jump over other pieces
 	std::vector<move_t> moves;
-	const auto [column, row] = board_t::index_2_numeric(from);
+	const auto [column, row] = notation_t::index_2_numeric(from);
 	switch (colour) {
 	case piece_t::WHITE:
 		maybe_add(moves, from, column, row + 1);

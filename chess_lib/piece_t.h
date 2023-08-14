@@ -26,10 +26,20 @@ private:
 	type_t m_type;
 
 public:
-	piece_t(colour_t colour, type_t type) noexcept;
+	constexpr piece_t(colour_t colour, type_t type) noexcept
+	: m_colour(colour),
+	  m_type(type) {}
 
 	[[nodiscard]] constexpr auto colour() const noexcept { return m_colour; }
 	[[nodiscard]] constexpr auto type() const noexcept { return m_type; }
+
+	[[nodiscard]] constexpr bool operator==(const piece_t& rhs) const noexcept {
+		return (colour() == rhs.colour()) && (type() == rhs.type());
+	}
+
+	[[nodiscard]] constexpr bool operator!=(const piece_t& rhs) const noexcept {
+		return !(*this == rhs);
+	}
 
 	[[nodiscard]] std::string representation() const;
 };

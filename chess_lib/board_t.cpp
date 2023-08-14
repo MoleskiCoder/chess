@@ -2,8 +2,6 @@
 
 #include "board_t.h"
 
-std::array<int, 8> board_t::_reverse_row = { 7, 6, 5, 4, 3, 2, 1, 0 };
-
 void board_t::clear_squares() noexcept {
 	squares() = {
 		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
@@ -49,12 +47,12 @@ std::string board_t::representation() const {
 }
 
 std::string board_t::representation(int idx) {
-	const auto [column, row] = index_2_algebraic(idx);
+	const auto [column, row] = notation_t::index_2_algebraic(idx);
 	return std::string({ column, row });
 }
 
 std::string board_t::representation(int column, int row) {
-	const auto [column_char, row_char] = numeric_2_algebraic(column, row);
+	const auto [column_char, row_char] = notation_t::numeric_2_algebraic(column, row);
 	return std::string({ column_char, row_char });
 }
 

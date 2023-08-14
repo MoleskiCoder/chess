@@ -85,4 +85,3 @@ public:
 		return numeric_2_algebraic(index_2_numeric(index));
 	}
 };
-

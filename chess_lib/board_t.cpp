@@ -1,5 +1,7 @@
 #include "pch.h"
 
+#include <sstream>
+
 #include "board_t.h"
 
 void board_t::clear_squares() noexcept {

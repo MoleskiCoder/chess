@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <string>
+#include <vector>
 
 #include "notation_t.h"
 
@@ -11,6 +12,14 @@ private:
 	int m_to;
 
 public:
+	[[nodiscard]] static auto find_move(const std::vector<move_t>& moves, const move_t& move) {
+		return std::find(moves.begin(), moves.end(), move);
+	}
+
+	[[nodiscard]] static auto has_move(const std::vector<move_t>& moves, const move_t& move) {
+		return find_move(moves, move) != moves.end();
+	}
+
 	constexpr move_t(int from, int to) noexcept
 	: m_from(from), m_to(to) {}
 
@@ -27,6 +36,14 @@ public:
 
 	[[nodiscard]] constexpr bool operator==(const move_t& rhs) const noexcept {
 		return (from() == rhs.from()) && (to() == rhs.to());
+	}
+
+	[[nodiscard]] auto find_move(const std::vector<move_t>& moves) {
+		return find_move(moves, *this);
+	}
+
+	[[nodiscard]] auto has_move(const std::vector<move_t>& moves) {
+		return has_move(moves, *this);
 	}
 
 	[[nodiscard]] std::string representation() const;

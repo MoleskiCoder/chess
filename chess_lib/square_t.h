@@ -20,7 +20,6 @@ public:
 	[[nodiscard]] constexpr auto& contents() noexcept { return m_contents; }
 	[[nodiscard]] constexpr const auto& contents() const noexcept { return m_contents; }
 
-
 	[[nodiscard]] constexpr bool operator==(const square_t& rhs) const noexcept {
 
 		const auto& lhs_contents = contents();

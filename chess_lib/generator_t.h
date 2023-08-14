@@ -34,13 +34,4 @@ public:
 	[[nodiscard]] std::vector<move_t> generate_moves(int idx, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_moves(piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_moves() const;
-
-	[[nodiscard]] static auto find_move(const std::vector<move_t>& moves, const move_t& move) {
-		return std::find(moves.begin(), moves.end(), move);
-	}
-
-	[[nodiscard]] static auto has_move(const std::vector<move_t>& moves, const move_t& move) {
-		return find_move(moves, move) != moves.end();
-	}
 };
-

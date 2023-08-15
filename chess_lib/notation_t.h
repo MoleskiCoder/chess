@@ -12,6 +12,17 @@ private:
 public:
 
 	// X/Y to/from index
+	//
+	//		      x
+	//      0 1 2 3 4 5 6 7
+	//   0
+	//   1
+	//   2
+	//   3
+	// y 4
+	//   5
+	//   6
+	//   7
 
 	[[nodiscard]] static constexpr auto xy_2_index(int x, int y) noexcept {
 		assert(x >= 0 && x <= 7 && "x is out of range");
@@ -25,6 +36,17 @@ public:
 	}
 
 	// numeric to/from index
+	// 
+	//		      column
+	//        0 1 2 3 4 5 6 7
+	//     7
+	//     6
+	//     5
+	// row 4
+	//     3
+	//     2
+	//     1
+	//     0
 
 	[[nodiscard]] static constexpr std::pair<int, int> index_2_numeric(int i) noexcept {
 		const auto [x, y] = index_2_xy(i);
@@ -41,6 +63,17 @@ public:
 	}
 
 	// numeric to/from algebraic
+	// 
+	//		      column
+	//        A B C D E F G H
+	//     8
+	//     7
+	//     6
+	// row 5
+	//     4
+	//     3
+	//     2
+	//     1
 
 	[[nodiscard]] static constexpr std::pair<char, char> numeric_2_algebraic(int column, int row) noexcept {
 		assert(column >= 0 && column <= 7);

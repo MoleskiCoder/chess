@@ -5,30 +5,43 @@
 #include "board_t.h"
 
 void board_t::clear_squares() noexcept {
-	squares() = {
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-	};
+	squares() = board_t().squares();
 }
 
 void board_t::initialise() noexcept {
-	// N.B. Reversed row notation!!
-	squares() = {
-		piece_t::WhiteRook, piece_t::WhiteKnight,   piece_t::WhiteBishop,   piece_t::WhiteQueen,    piece_t::WhiteKing, piece_t::WhiteBishop,   piece_t::WhiteKnight,   piece_t::WhiteRook,
-		piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn, piece_t::WhitePawn,     piece_t::WhitePawn,     piece_t::WhitePawn,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,        square_t::Empty,    square_t::Empty,        square_t::Empty,        square_t::Empty,
-		piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn, piece_t::BlackPawn,     piece_t::BlackPawn,     piece_t::BlackPawn,
-		piece_t::BlackRook, piece_t::BlackKnight,   piece_t::BlackBishop,   piece_t::BlackQueen,    piece_t::BlackKing, piece_t::BlackBishop,   piece_t::BlackKnight,   piece_t::BlackRook,
-	};
+
+	clear_squares();
+
+	square("A1") = square("H1") = piece_t::WhiteRook;
+	square("B1") = square("G1") = piece_t::WhiteKnight;
+	square("C1") = square("F1") = piece_t::WhiteBishop;
+	square("D1") = piece_t::WhiteQueen;
+	square("E1") = piece_t::WhiteKing;
+	square("A2")
+		= square("B2")
+		= square("C2")
+		= square("D2")
+		= square("E2")
+		= square("F2")
+		= square("G2")
+		= square("H2")
+		= piece_t::WhitePawn;
+
+	square("A8") = square("H8") = piece_t::BlackRook;
+	square("B8") = square("G8") = piece_t::BlackKnight;
+	square("C8") = square("F8") = piece_t::BlackBishop;
+	square("D8") = piece_t::BlackQueen;
+	square("E8") = piece_t::BlackKing;
+	square("A7")
+		= square("B7")
+		= square("C7")
+		= square("D7")
+		= square("E7")
+		= square("F7")
+		= square("G7")
+		= square("H7")
+		= piece_t::BlackPawn;
+
 	current_player() = piece_t::WHITE;
 }
 
@@ -38,13 +51,16 @@ void board_t::swap_current_player() noexcept {
 
 std::string board_t::representation() const {
 	std::ostringstream oss;
-	for (int row = 0; row < 8; ++row) {
+	oss << std::endl << "      A   B   C   D   E   F   G   H" << std::endl;
+	for (int row = 7; row >= 0; row--) {
 		oss << std::endl;
-		for (int column = 0; column < 8; ++column) {
+		oss << "  " << row + 1 << "  ";
+		for (int column = 0; column < 8; ++column)
 			oss << square(column, row).representation();
-		}
+		oss << "  " << row + 1 << "  ";
 		oss << std::endl;
 	}
+	oss << std::endl << "      A   B   C   D   E   F   G   H" << std::endl;
 	return oss.str();
 }
 
@@ -62,4 +78,3 @@ std::string board_t::representation(int column, int row) {
 std::string board_t::representation(piece_t::colour_t colour) {
 	return colour == piece_t::WHITE ? "W" : "B";
 }
-

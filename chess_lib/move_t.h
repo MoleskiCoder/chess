@@ -20,6 +20,14 @@ public:
 		return find_move(moves, move) != moves.end();
 	}
 
+	[[nodiscard]] static auto remove_move(std::vector<move_t>& moves, const move_t& move) {
+		const auto iterator = find_move(moves, move);
+		const auto found = iterator != moves.end();
+		if (found)
+			moves.erase(iterator);
+		return found;
+	}
+
 	constexpr move_t(int from, int to) noexcept
 	: m_from(from), m_to(to) {}
 
@@ -41,9 +49,13 @@ public:
 	[[nodiscard]] auto find_move(const std::vector<move_t>& moves) {
 		return find_move(moves, *this);
 	}
-
+	
 	[[nodiscard]] auto has_move(const std::vector<move_t>& moves) {
 		return has_move(moves, *this);
+	}
+
+	[[nodiscard]] auto remove_move(std::vector<move_t>& moves) {
+		return remove_move(moves, *this);
 	}
 
 	[[nodiscard]] std::string representation() const;

@@ -34,16 +34,24 @@ std::vector<move_t> generator_t::generate_rook_moves(int from, piece_t::colour_t
 	const auto [column, row] = notation_t::index_2_numeric(from);
 
 	// Horizontal moves
-	for (int candidate = 0; candidate < column; ++candidate)
-		maybe_add(moves, from, candidate, row);
+	// Right to left
+	for (int candidate = column - 1; candidate >= 0; --candidate)
+		if (!maybe_add(moves, from, candidate, row))
+			break;
+	// Left to right
 	for (int candidate = column + 1; candidate < 8; ++candidate)
-		maybe_add(moves, from, candidate, row);
+		if (!maybe_add(moves, from, candidate, row))
+			break;
 
 	// Vertical moves
-	for (int candidate = 0; candidate < row; ++candidate)
-		maybe_add(moves, from, column, candidate);
+	// Bottom to top
+	for (int candidate = row - 1; candidate >= 0; --candidate)
+		if (!maybe_add(moves, from, column, candidate))
+			break;
+	// Top to bottom
 	for (int candidate = row + 1; candidate < 8; ++candidate)
-		maybe_add(moves, from, column, candidate);
+		if (!maybe_add(moves, from, column, candidate))
+			break;
 
 	return moves;
 }
@@ -115,14 +123,14 @@ std::vector<move_t> generator_t::generate_pawn_moves(int from, piece_t::colour_t
 	const auto [column, row] = notation_t::index_2_numeric(from);
 	switch (colour) {
 	case piece_t::WHITE:
-		maybe_add(moves, from, column, row + 1);
-		if (row == 1)
-			maybe_add(moves, from, column, row + 2);
+		if (maybe_add(moves, from, column, row + 1))
+			if (row == 1)
+				maybe_add(moves, from, column, row + 2);
 		break;
 	case piece_t::BLACK:
-		maybe_add(moves, from, column, row - 1);
-		if (row == 6)
-			maybe_add(moves, from, column, row - 2);
+		if (maybe_add(moves, from, column, row - 1))
+			if (row == 6)
+				maybe_add(moves, from, column, row - 2);
 		break;
 	default:
 		assert(false && "Unknown piece colour");

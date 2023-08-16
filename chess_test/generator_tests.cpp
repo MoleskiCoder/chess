@@ -106,6 +106,100 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 
 		REQUIRE(moves.size() == 14);
 	}
+
+	SECTION("White rook, centre, blocked right") {
+
+		board.current_player() = piece_t::WHITE;
+
+		const std::string from = "D4";
+		const auto from_idx = notation_t::algebraic_2_index(from);
+		const auto from_piece = piece_t::WhiteRook;
+		board.square(from_idx) = from_piece;
+
+		board.square("F4") = piece_t::WhitePawn;
+
+		const auto moves = generator.generate_moves(from_idx, from_piece);
+
+		// Horizontal moves
+		REQUIRE(move_t::has_move(moves, { from, "A4" }));
+		REQUIRE(move_t::has_move(moves, { from, "B4" }));
+		REQUIRE(move_t::has_move(moves, { from, "C4" }));
+		REQUIRE(move_t::has_move(moves, { from, "E4" }));
+
+		// Vertical moves
+		REQUIRE(move_t::has_move(moves, { from, "D1" }));
+		REQUIRE(move_t::has_move(moves, { from, "D2" }));
+		REQUIRE(move_t::has_move(moves, { from, "D3" }));
+		REQUIRE(move_t::has_move(moves, { from, "D5" }));
+		REQUIRE(move_t::has_move(moves, { from, "D6" }));
+		REQUIRE(move_t::has_move(moves, { from, "D7" }));
+		REQUIRE(move_t::has_move(moves, { from, "D8" }));
+
+		REQUIRE(moves.size() == 11);
+	}
+
+	SECTION("White rook, centre, blocked left") {
+
+		board.current_player() = piece_t::WHITE;
+
+		const std::string from = "D4";
+		const auto from_idx = notation_t::algebraic_2_index(from);
+		const auto from_piece = piece_t::WhiteRook;
+		board.square(from_idx) = from_piece;
+
+		board.square("B4") = piece_t::WhitePawn;
+
+		const auto moves = generator.generate_moves(from_idx, from_piece);
+
+		// Horizontal moves
+		REQUIRE(move_t::has_move(moves, { from, "C4" }));
+		REQUIRE(move_t::has_move(moves, { from, "E4" }));
+		REQUIRE(move_t::has_move(moves, { from, "F4" }));
+		REQUIRE(move_t::has_move(moves, { from, "G4" }));
+		REQUIRE(move_t::has_move(moves, { from, "H4" }));
+
+		// Vertical moves
+		REQUIRE(move_t::has_move(moves, { from, "D1" }));
+		REQUIRE(move_t::has_move(moves, { from, "D2" }));
+		REQUIRE(move_t::has_move(moves, { from, "D3" }));
+		REQUIRE(move_t::has_move(moves, { from, "D5" }));
+		REQUIRE(move_t::has_move(moves, { from, "D6" }));
+		REQUIRE(move_t::has_move(moves, { from, "D7" }));
+		REQUIRE(move_t::has_move(moves, { from, "D8" }));
+
+		REQUIRE(moves.size() == 12);
+	}
+
+	SECTION("White rook, centre, blocked above") {
+
+		board.current_player() = piece_t::WHITE;
+
+		const std::string from = "D4";
+		const auto from_idx = notation_t::algebraic_2_index(from);
+		const auto from_piece = piece_t::WhiteRook;
+		board.square(from_idx) = from_piece;
+
+		board.square("D6") = piece_t::WhitePawn;
+
+		const auto moves = generator.generate_moves(from_idx, from_piece);
+
+		// Horizontal moves
+		REQUIRE(move_t::has_move(moves, { from, "A4" }));
+		REQUIRE(move_t::has_move(moves, { from, "B4" }));
+		REQUIRE(move_t::has_move(moves, { from, "C4" }));
+		REQUIRE(move_t::has_move(moves, { from, "E4" }));
+		REQUIRE(move_t::has_move(moves, { from, "F4" }));
+		REQUIRE(move_t::has_move(moves, { from, "G4" }));
+		REQUIRE(move_t::has_move(moves, { from, "H4" }));
+
+		// Vertical moves
+		REQUIRE(move_t::has_move(moves, { from, "D1" }));
+		REQUIRE(move_t::has_move(moves, { from, "D2" }));
+		REQUIRE(move_t::has_move(moves, { from, "D3" }));
+		REQUIRE(move_t::has_move(moves, { from, "D5" }));
+
+		REQUIRE(moves.size() == 11);
+	}
 }
 
 TEST_CASE("Test bishop move generation", "[generate_bishop_moves]") {

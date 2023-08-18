@@ -30,7 +30,7 @@ public:
 	[[nodiscard]] std::vector<move_t> generate_knight_moves(const std::string& from, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_bishop_moves(int from, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_bishop_moves(const std::string& from, piece_t::colour_t colour) const;
-	[[nodiscard]] std::vector<move_t> generate_queen_moves(int idfromx, piece_t::colour_t colour) const;
+	[[nodiscard]] std::vector<move_t> generate_queen_moves(int from, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_queen_moves(const std::string& from, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_king_moves(int from, piece_t::colour_t colour) const;
 	[[nodiscard]] std::vector<move_t> generate_king_moves(const std::string& from, piece_t::colour_t colour) const;

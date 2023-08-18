@@ -163,37 +163,37 @@ std::vector<move_t> generator_t::generate_pawn_moves(const std::string& from, pi
 	return generate_pawn_moves(notation_t::algebraic_2_index(from), colour);
 }
 
-std::vector<move_t> generator_t::generate_moves(int idx, piece_t piece) const {
+std::vector<move_t> generator_t::generate_moves(int from, piece_t piece) const {
 	const auto colour = piece.colour();
 	const auto type = piece.type();
 	switch (type) {
 	case piece_t::ROOK:
-		return generate_rook_moves(idx, colour);
+		return generate_rook_moves(from, colour);
 		break;
 	case piece_t::KNIGHT:
-		return generate_knight_moves(idx, colour);
+		return generate_knight_moves(from, colour);
 		break;
 	case piece_t::BISHOP:
-		return generate_bishop_moves(idx, colour);
+		return generate_bishop_moves(from, colour);
 		break;
 	case piece_t::QUEEN:
-		return generate_queen_moves(idx, colour);
+		return generate_queen_moves(from, colour);
 		break;
 	case piece_t::KING:
-		return generate_king_moves(idx, colour);
+		return generate_king_moves(from, colour);
 		break;
 	case piece_t::PAWN:
-		return generate_pawn_moves(idx, colour);
+		return generate_pawn_moves(from, colour);
 	}
 	throw std::logic_error("Unknown piece type");
 }
 
-std::vector<move_t> generator_t::generate_moves(int idx, piece_t::colour_t colour) const {
-	const auto& contents = board().square(idx).contents();
+std::vector<move_t> generator_t::generate_moves(int from, piece_t::colour_t colour) const {
+	const auto& contents = board().square(from).contents();
 	const auto empty = !contents.has_value();
 	std::vector<move_t> moves;
 	if (empty || (contents->colour() != colour)) return moves;
-	return generate_moves(idx, *contents);
+	return generate_moves(from, *contents);
 }
 
 std::vector<move_t> generator_t::generate_moves(piece_t::colour_t colour) const {

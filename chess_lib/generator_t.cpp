@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "generator_t.h"
+#include "notation_t.h"
 
 void generator_t::add(std::vector<move_t>& moves, int from, int to) {
 	const move_t move = { from, to };
@@ -56,6 +57,10 @@ std::vector<move_t> generator_t::generate_rook_moves(int from, piece_t::colour_t
 	return moves;
 }
 
+std::vector<move_t> generator_t::generate_rook_moves(const std::string& from, piece_t::colour_t colour) const {
+	return generate_rook_moves(notation_t::algebraic_2_index(from), colour);
+}
+
 std::vector<move_t> generator_t::generate_knight_moves(int from, piece_t::colour_t colour) const {
 	// two squares horizontal, one vertical
 	// two squares vertical, one horizontal
@@ -63,6 +68,10 @@ std::vector<move_t> generator_t::generate_knight_moves(int from, piece_t::colour
 	std::vector<move_t> moves;
 	const auto [column, row] = notation_t::index_2_numeric(from);
 	return moves;
+}
+
+std::vector<move_t> generator_t::generate_knight_moves(const std::string& from, piece_t::colour_t colour) const {
+	return generate_knight_moves(notation_t::algebraic_2_index(from), colour);
 }
 
 std::vector<move_t> generator_t::generate_bishop_moves(int from, piece_t::colour_t colour) const {
@@ -98,6 +107,10 @@ std::vector<move_t> generator_t::generate_bishop_moves(int from, piece_t::colour
 	return moves;
 }
 
+std::vector<move_t> generator_t::generate_bishop_moves(const std::string& from, piece_t::colour_t colour) const {
+	return generate_bishop_moves(notation_t::algebraic_2_index(from), colour);
+}
+
 std::vector<move_t> generator_t::generate_queen_moves(int from, piece_t::colour_t colour) const {
 	// Moves in any direction
 	// cannot jump over other pieces
@@ -107,11 +120,19 @@ std::vector<move_t> generator_t::generate_queen_moves(int from, piece_t::colour_
 	return moves;
 }
 
+std::vector<move_t> generator_t::generate_queen_moves(const std::string& from, piece_t::colour_t colour) const {
+	return generate_queen_moves(notation_t::algebraic_2_index(from), colour);
+}
+
 std::vector<move_t> generator_t::generate_king_moves(int from, piece_t::colour_t colour) const {
 	// Moves in any direction, only one square
 	std::vector<move_t> moves;
 	const auto [column, row] = notation_t::index_2_numeric(from);
 	return moves;
+}
+
+std::vector<move_t> generator_t::generate_king_moves(const std::string& from, piece_t::colour_t colour) const {
+	return generate_king_moves(notation_t::algebraic_2_index(from), colour);
 }
 
 std::vector<move_t> generator_t::generate_pawn_moves(int from, piece_t::colour_t colour) const {
@@ -136,6 +157,10 @@ std::vector<move_t> generator_t::generate_pawn_moves(int from, piece_t::colour_t
 		assert(false && "Unknown piece colour");
 	}
 	return moves;
+}
+
+std::vector<move_t> generator_t::generate_pawn_moves(const std::string& from, piece_t::colour_t colour) const {
+	return generate_pawn_moves(notation_t::algebraic_2_index(from), colour);
 }
 
 std::vector<move_t> generator_t::generate_moves(int idx, piece_t piece) const {

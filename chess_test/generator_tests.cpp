@@ -9,8 +9,9 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 
 	SECTION("White pawn, first move") {
 		const std::string from = "A2";
-		game.board().square(from) = piece_t::WhitePawn;
-		auto moves = game.generator().generate_pawn_moves(notation_t::algebraic_2_index(from), piece_t::WHITE);
+		const auto piece = piece_t::WhitePawn;
+		game.board().square(from) = piece;
+		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A3" }));
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
 		REQUIRE(moves.empty());
@@ -19,8 +20,9 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("White pawn, second move") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "A3";
-		game.board().square(from) = piece_t::WhitePawn;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhitePawn;
+		game.board().square(from) = piece;
+		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
 		REQUIRE(moves.empty());
 	}
@@ -28,8 +30,9 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("Black pawn, first move") {
 		game.board().current_player() = piece_t::BLACK;
 		const std::string from = "A7";
-		game.board().square(from) = piece_t::BlackPawn;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::BlackPawn;
+		game.board().square(from) = piece;
+		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A6" }));
 		REQUIRE(move_t::remove_move(moves, { from, "A5" }));
 		REQUIRE(moves.empty());
@@ -38,8 +41,9 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	SECTION("Black pawn, second move") {
 		game.board().current_player() = piece_t::BLACK;
 		const std::string from = "A6";
-		game.board().square(from) = piece_t::BlackPawn;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::BlackPawn;
+		game.board().square(from) = piece;
+		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A5" }));
 		REQUIRE(moves.empty());
 	}
@@ -53,8 +57,9 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 	SECTION("White rook, bottom left corner") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "A1";
-		game.board().square(from) = piece_t::WhiteRook;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhiteRook;
+		game.board().square(from) = piece;
+		auto moves = game.generator().generate_rook_moves(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A2" }));
@@ -80,8 +85,9 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 	SECTION("White rook, centre") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "D4";
-		game.board().square(from) = piece_t::WhiteRook;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhiteRook;
+		game.board().square(from) = piece;
+		auto moves = game.generator().generate_rook_moves(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
@@ -115,7 +121,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 
 		game.board().square("F4") = piece_t::WhitePawn;
 
-		auto moves = game.generator().generate_moves(from_idx, from_piece);
+		auto moves = game.generator().generate_rook_moves(from_idx, from_piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
@@ -146,7 +152,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 
 		game.board().square("B4") = piece_t::WhitePawn;
 
-		auto moves = game.generator().generate_moves(from_idx, from_piece);
+		auto moves = game.generator().generate_rook_moves(from_idx, from_piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "C4" }));
@@ -178,7 +184,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 
 		game.board().square("D6") = piece_t::WhitePawn;
 
-		auto moves = game.generator().generate_moves(from_idx, from_piece);
+		auto moves = game.generator().generate_rook_moves(from_idx, from_piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));

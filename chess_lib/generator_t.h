@@ -1,8 +1,6 @@
 #pragma once
 
-#include <algorithm>
 #include <vector>
-#include <string>
 
 #include "piece_t.h"
 #include "move_t.h"

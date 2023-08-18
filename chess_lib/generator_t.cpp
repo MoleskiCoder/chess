@@ -2,6 +2,9 @@
 #include "generator_t.h"
 #include "notation_t.h"
 
+generator_t::generator_t(const board_t& board) noexcept
+: m_board(board) {}
+
 void generator_t::add(std::vector<move_t>& moves, int from, int to) {
 	const move_t move = { from, to };
 	moves.push_back(move);
@@ -135,34 +138,6 @@ std::vector<move_t> generator_t::generate_king_moves(const std::string& from, pi
 	return generate_king_moves(notation_t::algebraic_2_index(from), colour);
 }
 
-std::vector<move_t> generator_t::generate_pawn_moves(int from, piece_t::colour_t colour) const {
-	// needs colour for direction
-	// Moves down the board only
-	// Moves one or two squares first move, then one thereafter
-	// cannot jump over other pieces
-	std::vector<move_t> moves;
-	const auto [column, row] = notation_t::index_2_numeric(from);
-	switch (colour) {
-	case piece_t::WHITE:
-		if (maybe_add(moves, from, column, row + 1))
-			if (row == 1)
-				maybe_add(moves, from, column, row + 2);
-		break;
-	case piece_t::BLACK:
-		if (maybe_add(moves, from, column, row - 1))
-			if (row == 6)
-				maybe_add(moves, from, column, row - 2);
-		break;
-	default:
-		assert(false && "Unknown piece colour");
-	}
-	return moves;
-}
-
-std::vector<move_t> generator_t::generate_pawn_moves(const std::string& from, piece_t::colour_t colour) const {
-	return generate_pawn_moves(notation_t::algebraic_2_index(from), colour);
-}
-
 std::vector<move_t> generator_t::generate_moves(int from, piece_t piece) const {
 	const auto colour = piece.colour();
 	const auto type = piece.type();
@@ -183,7 +158,7 @@ std::vector<move_t> generator_t::generate_moves(int from, piece_t piece) const {
 		return generate_king_moves(from, colour);
 		break;
 	case piece_t::PAWN:
-		return generate_pawn_moves(from, colour);
+		return pawn_generator().generate(from, colour);
 	}
 	throw std::logic_error("Unknown piece type");
 }

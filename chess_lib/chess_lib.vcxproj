@@ -149,6 +149,7 @@
     <ClInclude Include="generator_t.h" />
     <ClInclude Include="move_t.h" />
     <ClInclude Include="notation_t.h" />
+    <ClInclude Include="pawn_generator_t.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="piece_t.h" />
     <ClInclude Include="square_t.h" />
@@ -159,6 +160,7 @@
     <ClCompile Include="generator_t.cpp" />
     <ClCompile Include="move_t.cpp" />
     <ClCompile Include="notation_t.cpp" />
+    <ClCompile Include="pawn_generator_t.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

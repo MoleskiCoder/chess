@@ -11,7 +11,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		const std::string from = "A2";
 		const auto piece = piece_t::WhitePawn;
 		game.board().square(from) = piece;
-		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
+		auto moves = game.generator().pawn_generator().generate(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A3" }));
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
 		REQUIRE(moves.empty());
@@ -22,7 +22,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		const std::string from = "A3";
 		const auto piece = piece_t::WhitePawn;
 		game.board().square(from) = piece;
-		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
+		auto moves = game.generator().pawn_generator().generate(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
 		REQUIRE(moves.empty());
 	}
@@ -32,7 +32,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		const std::string from = "A7";
 		const auto piece = piece_t::BlackPawn;
 		game.board().square(from) = piece;
-		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
+		auto moves = game.generator().pawn_generator().generate(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A6" }));
 		REQUIRE(move_t::remove_move(moves, { from, "A5" }));
 		REQUIRE(moves.empty());
@@ -43,7 +43,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 		const std::string from = "A6";
 		const auto piece = piece_t::BlackPawn;
 		game.board().square(from) = piece;
-		auto moves = game.generator().generate_pawn_moves(from, piece.colour());
+		auto moves = game.generator().pawn_generator().generate(from, piece.colour());
 		REQUIRE(move_t::remove_move(moves, { from, "A5" }));
 		REQUIRE(moves.empty());
 	}

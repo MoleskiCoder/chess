@@ -45,6 +45,21 @@
     <ClInclude Include="pawn_generator_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bishop_generator_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="king_generator_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="knight_generator_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="queen_generator_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rook_generator_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -72,6 +87,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pawn_generator_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bishop_generator_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="king_generator_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="knight_generator_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="queen_generator_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rook_generator_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

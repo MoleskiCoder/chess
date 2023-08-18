@@ -60,7 +60,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 		const std::string from = "A1";
 		const auto piece = piece_t::WhiteRook;
 		game.board().square(from) = piece;
-		auto moves = game.generator().generate_rook_moves(from, piece.colour());
+		auto moves = game.generator().rook_generator().generate(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A2" }));
@@ -89,7 +89,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 		const std::string from = "D4";
 		const auto piece = piece_t::WhiteRook;
 		game.board().square(from) = piece;
-		auto moves = game.generator().generate_rook_moves(from, piece.colour());
+		auto moves = game.generator().rook_generator().generate(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
@@ -119,7 +119,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 		const auto piece = piece_t::WhiteRook;
 		game.board().square(from) = piece;
 		game.board().square("F4") = piece_t::WhitePawn;
-		auto moves = game.generator().generate_rook_moves(from, piece.colour());
+		auto moves = game.generator().rook_generator().generate(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));
@@ -146,7 +146,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 		const auto piece = piece_t::WhiteRook;
 		game.board().square(from) = piece;
 		game.board().square("B4") = piece_t::WhitePawn;
-		auto moves = game.generator().generate_rook_moves(from, piece.colour());
+		auto moves = game.generator().rook_generator().generate(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "C4" }));
@@ -174,7 +174,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 		const auto piece = piece_t::WhiteRook;
 		game.board().square(from) = piece;
 		game.board().square("D6") = piece_t::WhitePawn;
-		auto moves = game.generator().generate_rook_moves(from, piece.colour());
+		auto moves = game.generator().rook_generator().generate(from, piece.colour());
 
 		// Horizontal moves
 		REQUIRE(move_t::remove_move(moves, { from, "A4" }));

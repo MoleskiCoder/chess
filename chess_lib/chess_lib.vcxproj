@@ -143,21 +143,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="bishop_generator_t.h" />
     <ClInclude Include="board_t.h" />
     <ClInclude Include="game_t.h" />
     <ClInclude Include="chess.h" />
     <ClInclude Include="generator_t.h" />
+    <ClInclude Include="king_generator_t.h" />
+    <ClInclude Include="knight_generator_t.h" />
     <ClInclude Include="move_t.h" />
     <ClInclude Include="notation_t.h" />
     <ClInclude Include="pawn_generator_t.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="piece_t.h" />
+    <ClInclude Include="queen_generator_t.h" />
+    <ClInclude Include="rook_generator_t.h" />
     <ClInclude Include="square_t.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bishop_generator_t.cpp" />
     <ClCompile Include="board_t.cpp" />
     <ClCompile Include="game_t.cpp" />
     <ClCompile Include="generator_t.cpp" />
+    <ClCompile Include="king_generator_t.cpp" />
+    <ClCompile Include="knight_generator_t.cpp" />
     <ClCompile Include="move_t.cpp" />
     <ClCompile Include="notation_t.cpp" />
     <ClCompile Include="pawn_generator_t.cpp" />
@@ -168,6 +176,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="piece_t.cpp" />
+    <ClCompile Include="queen_generator_t.cpp" />
+    <ClCompile Include="rook_generator_t.cpp" />
     <ClCompile Include="square_t.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

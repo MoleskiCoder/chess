@@ -7,6 +7,7 @@
 #include "square_t.h"
 #include "piece_t.h"
 #include "notation_t.h"
+#include "move_t.h"
 
 class board_t final {
 private:
@@ -72,4 +73,6 @@ public:
 	}
 
 	void initialise() noexcept;
+
+	void execute(const move_t& move);
 };

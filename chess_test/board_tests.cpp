@@ -40,3 +40,21 @@ TEST_CASE("Clearing the board", "[clear_squares]") {
 		REQUIRE(board.current_player() == piece_t::BLACK);
 	}
 }
+
+TEST_CASE("Executing move", "[execute]") {
+
+	board_t board;
+	board.initialise();
+
+	SECTION("Moving a piece corrects the board state") {
+
+		const std::string from = "E2";
+		const std::string to = "E4";
+
+		board.execute({ from, to });
+
+		REQUIRE(board.square(from) == square_t::Empty);
+		REQUIRE(board.square(to).contents().has_value());
+		REQUIRE(board.square(to) == piece_t::WhitePawn);
+	}
+}

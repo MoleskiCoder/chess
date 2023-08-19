@@ -78,3 +78,10 @@ std::string board_t::representation(int column, int row) {
 std::string board_t::representation(piece_t::colour_t colour) {
 	return colour == piece_t::WHITE ? "W" : "B";
 }
+
+void board_t::execute(const move_t& move) {
+	auto& from_square = square(move.from());
+	assert(from_square.contents().has_value() && "Nothing to move, from square is empty");
+	square(move.to()) = from_square;
+	from_square = square_t::Empty;
+}

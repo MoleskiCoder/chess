@@ -2,7 +2,7 @@
 
 #include "chess.h"
 
-TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
+TEST_CASE("Test pawn move generation", "[pawn_generator]") {
 
 	game_t game;
 	game.board().clear_squares();
@@ -49,7 +49,7 @@ TEST_CASE("Test pawn move generation", "[generate_pawn_moves]") {
 	}
 }
 
-TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
+TEST_CASE("Test rook move generation", "[rook_generator]") {
 
 	game_t game;
 	game.board().clear_squares();
@@ -195,7 +195,7 @@ TEST_CASE("Test rook move generation", "[generate_rook_moves]") {
 	}
 }
 
-TEST_CASE("Test bishop move generation", "[generate_bishop_moves]") {
+TEST_CASE("Test bishop move generation", "[bishop_generator]") {
 
 	game_t game;
 	game.board().clear_squares();
@@ -203,8 +203,9 @@ TEST_CASE("Test bishop move generation", "[generate_bishop_moves]") {
 	SECTION("White bishop, bottom left corner") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "A1";
-		game.board().square(from) = piece_t::WhiteBishop;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhiteBishop;
+		game.board().square(from) = piece;
+		auto moves = game.generator().bishop_generator().generate(from, piece.colour());
 
 		// Diagonal moves
 		REQUIRE(move_t::remove_move(moves, { from, "B2" }));
@@ -221,8 +222,9 @@ TEST_CASE("Test bishop move generation", "[generate_bishop_moves]") {
 	SECTION("White bishop, centre") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "D4";
-		game.board().square(from) = piece_t::WhiteBishop;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhiteBishop;
+		game.board().square(from) = piece;
+		auto moves = game.generator().bishop_generator().generate(from, piece.colour());
 
 		// Right to left
 		REQUIRE(move_t::remove_move(moves, { from, "C5" }));
@@ -245,7 +247,7 @@ TEST_CASE("Test bishop move generation", "[generate_bishop_moves]") {
 	}
 }
 
-TEST_CASE("Test queen move generation", "[generate_queen_moves]") {
+TEST_CASE("Test queen move generation", "[queen_generator]") {
 
 	game_t game;
 	game.board().clear_squares();
@@ -253,8 +255,9 @@ TEST_CASE("Test queen move generation", "[generate_queen_moves]") {
 	SECTION("White queen, bottom left corner") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "A1";
-		game.board().square(from) = piece_t::WhiteQueen;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhiteQueen;
+		game.board().square(from) = piece;
+		auto moves = game.generator().queen_generator().generate(from, piece.colour());
 
 		// Bishop moves
 		// Diagonal moves
@@ -290,8 +293,9 @@ TEST_CASE("Test queen move generation", "[generate_queen_moves]") {
 	SECTION("White queen, centre") {
 		game.board().current_player() = piece_t::WHITE;
 		const std::string from = "D4";
-		game.board().square(from) = piece_t::WhiteQueen;
-		auto moves = game.generator().generate_moves();
+		const auto piece = piece_t::WhiteQueen;
+		game.board().square(from) = piece;
+		auto moves = game.generator().queen_generator().generate(from, piece.colour());
 
 		// Bishop moves
 		// Right to left

@@ -1,5 +1,7 @@
 #include "pch.h"
 
+#include <algorithm>
+
 #include "chess.h"
 
 TEST_CASE("Construction") {
@@ -11,9 +13,7 @@ TEST_CASE("Construction") {
 	}
 
 	SECTION("Construction gives an empty board") {
-		for (const auto& square : board.squares()) {
-			REQUIRE(square == square_t::Empty);
-		}
+		REQUIRE(std::all_of(board.squares().cbegin(), board.squares().cend(), [](const square_t& square) { return square == square_t::Empty; }));
 	}
 
 	SECTION("Construction sets the current player to white") {
